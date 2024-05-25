@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@next/font':
-        specifier: ^14.2.3
-        version: 14.2.3(next@14.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       next:
         specifier: 14.1.4
         version: 14.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -103,11 +100,6 @@ packages:
 
   '@next/eslint-plugin-next@14.1.4':
     resolution: {integrity: sha512-n4zYNLSyCo0Ln5b7qxqQeQ34OZKXwgbdcx6kmkQbywr+0k6M3Vinft0T72R6CDAcDrne2IAgSud4uWCzFgc5HA==}
-
-  '@next/font@14.2.3':
-    resolution: {integrity: sha512-u35UstQmvl3Yrvv2MOi6RcXMH3xDtmWTXcvkYcC/vCZHLqj/5JQ5UyFRf5saDWxFlZIkEh8HCzwNGoiHIr1/NQ==}
-    peerDependencies:
-      next: '*'
 
   '@next/swc-darwin-arm64@14.1.4':
     resolution: {integrity: sha512-ubmUkbmW65nIAOmoxT1IROZdmmJMmdYvXIe8211send9ZYJu+SqxSnJM4TrPj9wmL6g9Atvj0S/2cFmMSS99jg==}
@@ -1585,10 +1577,6 @@ snapshots:
   '@next/eslint-plugin-next@14.1.4':
     dependencies:
       glob: 10.3.10
-
-  '@next/font@14.2.3(next@14.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
-    dependencies:
-      next: 14.1.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@next/swc-darwin-arm64@14.1.4':
     optional: true
