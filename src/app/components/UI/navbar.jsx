@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const OlahragYukLogo = () => {
   return (
-    <div className="">
+    <div className="z-100">
       <Image
         alt="logo"
         width={137}
@@ -17,25 +17,24 @@ const OlahragYukLogo = () => {
 
 const Menu = () => {
   return (
-    <div class="menuNavbar" className="flex flex-row">
-      <ul>
-        <li>SewaYuk</li>
-        <li>TutorYuk</li>
-        <li>TournamentYuk</li>
-      </ul>
+    <div class="menuNavbar" className="relative flex flex-row gap-[100px] me-[300px] z-100">
+      <a href="">SewaYuk</a>
+      <a href="">TutorYuk</a>
+      <a href="">TurnamenYuk</a>
     </div>
   );
 };
 
 const RegistAndLogin = () => {
   return (
-    <div className="boxBtn">
-      <div className="SignIn">
+    <div className="flex flex-row gap-[20px] z-100">
+      <div className="h-[40px] w-[115px] bg-white bg-opacity-10 backdrop-blur-sm rounded-[50px] flex items-center justify-center text-center">
         <p>Sign In</p>
       </div>
+
       
-      <div className="SignUp">
-        <p>Sign Up</p>
+      <div className="h-[40px] w-[115px] bg-[#BEE702] rounded-[50px] flex items-center justify-center text-center text-[#141414]">
+        <p>Sign In</p>
       </div>
     </div>
   )
@@ -43,8 +42,8 @@ const RegistAndLogin = () => {
 
 export default function Navbar() {
   return (
-    <div class="navbar" className="relative flex w-screen h-[120px] items-center bg-red-700">
-      <div class="boxNavbar" className="flex flex-row w-screen h-[100px] items-center bg-blue-400">
+    <div class="navbar" className="fixed z-100 flex w-screen h-[120px] items-center">
+      <div class="boxNavbar" className="flex flex-row w-screen h-[100px] items-center justify-around text-[14px]">
         <OlahragYukLogo />
         <Menu />
         <RegistAndLogin />
