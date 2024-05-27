@@ -2,6 +2,7 @@ import Navbar from "../app/components/UI/navbar";
 import Landing from "../app/components/UI/landing-page";
 import Card from "./components/UI/card";
 import DropdownFilter from "./components/UI/dropdownFilter";
+import BookingPage from "./components/UI/booking-page";
 
 const LandingPage = () => {
   return (
