@@ -8,7 +8,7 @@ const Hero = () => {
 
 export default function LandingPage() {
   return (
-    <div className="relative flex w-screen h-screen">
+    <div className="relative flex w-screen h-screen z-10">
       <div className="w-[35%] h-screen flex items-center justify-center ml-[50px]">
         <div className="w-full h-[300px] flex justify-center items-center text-center">
           <div className="text-[28px]">

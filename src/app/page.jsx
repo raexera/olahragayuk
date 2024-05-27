@@ -3,14 +3,25 @@ import Landing from "../app/components/UI/landing-page";
 import Card from "./components/UI/card";
 import DropdownFilter from "./components/UI/dropdownFilter";
 
+const LandingPage = () => {
+  return (
+    <div>
+      <Navbar />
+      <Landing />
+    </div>
+  )
+}
+
+
 export default function Home() {
   const kotaOptions = ["Pilih Kota", "Jakarta", "Bandung", "Surabaya"];
   const sportsOptions = ["Sports", "Sepak Bola", "Basket", "Tenis"];
 
   return (
     <main className="w-full h-full bg-[#141414] overflow-hidden">
-      <Navbar />
-      <Landing />
+
+      <LandingPage />
+
       <div className="bg-[#888888] h-full mt-4 rounded-tl-2xl rounded-tr-2xl">
         <section className="container mx-auto p-4">
           <h1 className="text-3xl font-bold text-gray-800">Home</h1>
@@ -64,6 +75,7 @@ export default function Home() {
           </div>
         </section>
       </div>
+
     </main>
   );
 }
