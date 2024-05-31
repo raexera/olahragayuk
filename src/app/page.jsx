@@ -2,6 +2,7 @@ import Navbar from "../app/components/UI/navbar";
 import Landing from "../app/components/UI/landing-page";
 import Card from "./components/UI/card";
 import DropdownFilter from "./components/UI/dropdownFilter";
+import PaymentPage from "./components/UI/payment-page";
 import SignIn from "./components/UI/login";
 import Register from "./components/UI/register";
 
