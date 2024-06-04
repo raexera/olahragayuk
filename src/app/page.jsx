@@ -1,17 +1,25 @@
-import Navbar from "../app/components/UI/navbar";
-import Landing from "../app/components/UI/landing-page";
-import Card from "./components/UI/card";
-import DropdownFilter from "./components/UI/dropdownFilter";
-import PaymentPage from "./components/UI/payment-page";
-import SignIn from "./components/UI/login";
-import Register from "./components/UI/register";
-import supabase from "@/lib/supabase";
+"use client";
 
-const LandingPage = () => {
+import { useEffect, useState } from "react";
+import { getUser } from "@/services/user";
+
+const UserList = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await getUser();
+      setUsers(data);
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
     <div>
-      <Navbar />
-      <Landing />
+      {users.map((user) => (
+        <div key={user.id}>{user.name}</div>
+      ))}
     </div>
   );
 };
@@ -19,8 +27,9 @@ const LandingPage = () => {
 export default function Home() {
   return (
     <main className="w-full h-full bg-[#141414] overflow-hidden">
-      <LandingPage />
-      <PaymentPage />
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <UserList />
+      </div>
     </main>
   );
 }

@@ -1,16 +1,22 @@
-export const createField = async (field) => {
-  const { data, error } = await supabase.from("Field").insert(field);
+import supabase from "@/lib/supabase";
+
+export const getFields = async () => {
+  const { data, error } = await supabase.from("Field").select("*");
+
   if (error) {
-    throw new Error("Failed to create field");
+    throw new Error(error.message);
   }
+
   return data;
 };
 
-export const getField = async (id) => {
-  const { data, error } = await supabase.from("Field").select("*").eq("id", id);
+export const createField = async (field) => {
+  const { data, error } = await supabase.from("Field").insert(field);
+
   if (error) {
-    throw new Error("Failed to fetch field");
+    throw new Error(error.message);
   }
+
   return data;
 };
 
@@ -18,25 +24,21 @@ export const updateField = async (id, field) => {
   const { data, error } = await supabase
     .from("Field")
     .update(field)
-    .eq("id", id);
+    .match({ id });
+
   if (error) {
-    throw new Error("Failed to update field");
+    throw new Error(error.message);
   }
+
   return data;
 };
 
 export const deleteField = async (id) => {
-  const { data, error } = await supabase.from("Field").delete().eq("id", id);
-  if (error) {
-    throw new Error("Failed to delete field");
-  }
-  return data;
-};
+  const { data, error } = await supabase.from("Field").delete().match({ id });
 
-export const listFields = async () => {
-  const { data, error } = await supabase.from("Field").select("*");
   if (error) {
-    throw new Error("Failed to list fields");
+    throw new Error(error.message);
   }
+
   return data;
 };
