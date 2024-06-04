@@ -1,44 +1,50 @@
 import supabase from "@/lib/supabase";
+import { redirect } from "next/navigation";
 
-export const getUser = async () => {
+export const signInWithOAuth = async (provider) => {
+  const { error, data } = await supabase.auth.signInWithOAuth({ provider });
+  if (error) {
+    throw error;
+  } else {
+    return redirect(data.url);
+  }
+};
+
+export const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+};
+
+export const getUsers = async () => {
   const { data, error } = await supabase.from("User").select("*");
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
+  if (error) throw error;
   return data;
 };
 
-export const createUser = async (user) => {
-  const { data, error } = await supabase.from("User").insert(user);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
-
-export const updateUser = async (id, user) => {
+export const getUserById = async (userId) => {
   const { data, error } = await supabase
     .from("User")
-    .update(user)
-    .match({ id });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
+    .select("*")
+    .eq("UserID", userId)
+    .single();
+  if (error) throw error;
   return data;
 };
 
-export const deleteUser = async (id) => {
-  const { data, error } = await supabase.from("User").delete().match({ id });
+export const updateUser = async (userId, updates) => {
+  const { data, error } = await supabase
+    .from("User")
+    .update(updates)
+    .eq("UserID", userId);
+  if (error) throw error;
+  return data;
+};
 
-  if (error) {
-    throw new Error(error.message);
-  }
-
+export const deleteUser = async (userId) => {
+  const { data, error } = await supabase
+    .from("User")
+    .delete()
+    .eq("UserID", userId);
+  if (error) throw error;
   return data;
 };

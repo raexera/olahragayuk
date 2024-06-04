@@ -1,9 +1,8 @@
-
-import Head from 'next/head';
+import Head from "next/head";
 
 const Register = () => {
   return (
-    <>
+    <main>
       <Head>
         <title>Register</title>
       </Head>
@@ -16,26 +15,26 @@ const Register = () => {
               </h1>
               <form className="space-y-5 md:space-y-6" action="#">
                 <div className="flex space-x-4">
-                    <div className="w-1/2">
-                        <input
-                            type="text"
-                            name="firstName"
-                            id="firstName"
-                            className="sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="First Name"
-                            required
-                        />
-                    </div>
-                    <div className="w-1/2">
-                        <input
-                            type="text"
-                            name="lastName"
-                            id="lastName"
-                            className="sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Last Name"
-                            required
-                        />
-                    </div>
+                  <div className="w-1/2">
+                    <input
+                      type="text"
+                      name="firstName"
+                      id="firstName"
+                      className="sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="First Name"
+                      required
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <input
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      className="sm:text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Last Name"
+                      required
+                    />
+                  </div>
                 </div>
                 <div>
                   <input
@@ -57,7 +56,7 @@ const Register = () => {
                     required
                   />
                 </div>
-              
+
                 <div className="flex justify-center">
                   <button
                     type="submit"
@@ -66,13 +65,12 @@ const Register = () => {
                     Register
                   </button>
                 </div>
-            
               </form>
             </div>
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 };
 
