@@ -22,8 +22,6 @@ export default function Home() {
   return (
     <main className="w-full h-full bg-[#141414] overflow-hidden">
       <LandingPage />
-      <BookingPage />
-      <UserProfilePage />
 
       <div className="bg-[#888888] h-full mt-4 rounded-tl-2xl rounded-tr-2xl">
         <section className="container mx-auto p-4">
