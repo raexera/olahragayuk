@@ -1,4 +1,4 @@
-import { michroma } from '../app/components/Fonts/font';
+import { michroma } from "../app/components/Fonts/font";
 import "./globals.css";
 
 export const metadata = {
@@ -9,9 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${michroma.className} antialiased `}>
-        {children}
-        </body>
+      <body className={`${michroma.className} antialiased `}>{children}</body>
     </html>
   );
 }
