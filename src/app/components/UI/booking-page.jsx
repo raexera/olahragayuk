@@ -69,7 +69,7 @@ const DateSelector = ({ bookingDate, handleDateChange }) => {
         type="date"
         value={bookingDate}
         onChange={handleDateChange}
-        className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
     </div>
   );
@@ -82,7 +82,7 @@ const TimeSelector = ({ bookingTime, handleTimeChange, duration, handleDurationC
         type="time"
         value={bookingTime}
         onChange={handleTimeChange}
-        className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
       <div className='text-[24px]'>
         <h1>Select Duration</h1>
@@ -90,7 +90,7 @@ const TimeSelector = ({ bookingTime, handleTimeChange, duration, handleDurationC
       <select
         value={duration}
         onChange={handleDurationChange}
-        className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       >
         {[...Array(24)].map((_, i) => (
           <option key={i + 1} value={i + 1}>{i + 1} hour{ i + 1 > 1 ? 's' : ''}</option>
@@ -100,12 +100,53 @@ const TimeSelector = ({ bookingTime, handleTimeChange, duration, handleDurationC
   );
 };
 
+const NameBooking = ({ bookingName, handleNameChange }) => {
+  return (
+    <div className="name-selector">
+      <input
+        type="text"
+        value={bookingName}
+        onChange={handleNameChange}
+        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+      />
+    </div>
+  );
 
+}
+
+const EmailBooking = ({ bookingEmail, handleEmailChange }) => {
+  return (
+    <div className="email-selector">
+      <input
+        type="email"
+        value={bookingEmail}
+        onChange={handleEmailChange}
+        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+      />
+    </div>
+  );
+}
+
+const PhoneBooking = ({ bookingPhone, handlePhoneChange }) => {
+  return (
+    <div className="phone-selector">
+      <input
+        type="number"
+        value={bookingPhone}
+        onChange={handlePhoneChange}
+        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+      />
+    </div>
+  );
+}
 
 const BookingPage = () => {
   const [bookingDate, setBookingDate] = useState('');
   const [bookingTime, setBookingTime] = useState('');
   const [duration, setDuration] = useState(1);
+  const [bookingName, setBookingName] = useState('');
+  const [bookingEmail, setBookingEmail] = useState('');
+  const [bookingPhone, setBookingPhone] = useState('');
 
   const handleDateChange = (e) => {
     setBookingDate(e.target.value);
@@ -126,16 +167,28 @@ const BookingPage = () => {
     return endTime.toTimeString().slice(0, 5);
   };
 
+  const handleNameChange = (e) => {
+    setBookingName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setBookingEmail(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setBookingPhone(e.target.value);
+  };
+
   return (
     <div className="w-screen h-screen relative flex items-center justify-center">
       <div className="w-screen h-[90%] mx-[50px] flex flex-row gap-[50px]">
-        <div className="left w-[60%] h-full bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[30px] py-[30px] flex flex-row">
+        <div className="left w-[60%] h-full bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[30px] pt-[30px] pb-[20px] flex flex-row">
           <div className="arrw pt-[10px]"><WhiteArrow /></div>
           <div className="ml-[40px]">
             <div className="head h-[80px] w-full text-[34px] text-[#BEE702]">
                 <h1>Booking</h1>
             </div>
-            <div className="body">
+            <div className="body flex flex-col justify-between">
               <div className="date">
                 <div className='text-[24px]'>
                   <h1>Select Date</h1>
@@ -159,20 +212,18 @@ const BookingPage = () => {
                 </div>
               </div>
 
-              <div className="name mb-[15px]">
+              <div className="name">
                 <div className='text-[24px]'>
                   <h1>Orderer Name</h1>
                 </div>
-                <input type="text" class="w-full px-3 py-2 rounded-md border border-[#141414] focus:outline-none focus:ring-1 focus:ring-[#BEE702] text-[#141414]">
-                </input>
+                <NameBooking bookingName={bookingName} handleNameChange={handleNameChange} />
               </div>
 
               <div className="email">
                 <div className='text-[24px]'>
                   <h1>Ordered Email</h1>
                 </div>
-                <input type="email" class="w-full px-3 py-2 rounded-md border border-[#141414] focus:outline-none focus:ring-1 focus:ring-[#BEE702] text-[#141414]">
-                </input>
+                <EmailBooking bookingEmail={bookingEmail} handleEmailChange={handleEmailChange} />
                 <div>
 
                 </div>
@@ -181,8 +232,7 @@ const BookingPage = () => {
                 <div className='text-[24px]'>
                   <h1>Phone Number</h1>
                 </div>
-                <input type="number" class="appearance-none w-full px-3 py-2 rounded-md border border-[#141414] focus:outline-none focus:ring-1 focus:ring-[#BEE702] text-[#141414]">
-                </input>
+                <PhoneBooking bookingPhone={bookingPhone} handlePhoneChange={handlePhoneChange} />
               </div>
             </div>
           </div>
@@ -195,19 +245,47 @@ const BookingPage = () => {
             </div>
             <div>
             <div className="summary">
-                {bookingDate && bookingTime && (
+                {bookingDate &&(
                   <p className="text-[#F5F5F5]">
                     <span>Selected Date:</span> {bookingDate} <br />
+                  </p>
+                )}
+                {bookingTime &&(
+                  <p className="text-[#F5F5F5]">
                     <span>Start Time:</span> {bookingTime} <br />
                     <span>Duration:</span> {duration} hour(s) <br />
-                    <span>End Time:</span> {calculateEndTime(bookingDate, bookingTime, duration)}
+                    <span>End Time:</span> {calculateEndTime(bookingDate, bookingTime, duration)} <br />
+                  </p>
+                )}
+                {bookingName &&(
+                  <p className="text-[#F5F5F5]">
+                    <span>Orderer Name:</span> {bookingName} <br />
+                  </p>
+                )}
+                {bookingEmail &&(
+                  <p className="text-[#F5F5F5]">
+                    <span>Ordered Email:</span> {bookingEmail} <br />
+                  </p>
+                )}
+                {bookingPhone &&(
+                  <p className="text-[#F5F5F5]">
+                    <span>Phone Number:</span> {bookingPhone} <br />
                   </p>
                 )}
               </div>
             </div>
           </div>
-          <div className="bttm w-full h-[30%] bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30">
 
+          <div className="bttm w-full h-[30%] bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 p-[20px] flex flex-col justify-between">
+            <div className="head w-full text-[24px] text-[#F5F5F5]">
+              <h1>Total Amount</h1>
+            </div>
+            <div className="body">
+              <p className="text-[#BEE702] text-[20px]">Rp. 100.000</p>
+            </div>
+            <div className="bttn">
+              <button className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md">Proceed to Payment </button>
+            </div>
           </div>
         </div>
       </div>
