@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import "../../globals.css";
+import "../globals.css";
 
 const Hero = () => {
   return <Image alt="hero" width={767} height={837} src="/hero.png" />;

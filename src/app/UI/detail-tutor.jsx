@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Arrow from '../../assets/arrow';
+import Arrow from '../assets/arrow';
 
 const DetailSewa = () => {
   return (
@@ -23,7 +23,7 @@ const DetailSewa = () => {
 
         <div className='w-screen h-[120px] flex flex-row justify-between px-[80px] items-center mb-[50px]'>
           <div className='text-[40px]'>
-            <p>Lapangan GBK</p>
+            <p>Coach Alex</p>
           </div>
           <div>
             <div className="arrow flex flex-row w-[116px] h-[42px] gap-[2px]">
@@ -42,11 +42,27 @@ const DetailSewa = () => {
         </div>
 
         <div>
-          <div className="description px-[80px] mb-[30px]">
-            <div className='text-[24px] text-[#BEE702] underline'><p>Description</p></div>
-            <div className='text-[20px] text-[#F5F5F5]'>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis architecto repellat praesentium maiores! Saepe consectetur deserunt incidunt cupiditate voluptates modi facere placeat, itaque commodi, numquam ad hic ab id quidem tenetur dolore voluptatum at! Excepturi quam culpa, a esse harum officiis ullam, aliquid veritatis vel quia iste, sit repellat omnis.</p>
+          <div className="detailPersonal px-[80px] mb-[30px]">
+            <div className='text-[24px] text-[#BEE702] underline'><p>Detail Personal</p></div>
+            <div className='flex flex-col gap-[15px]'>
+              <div className='coachName'>
+                <div className="name text-[20px] text-[#F5F5F5]">
+                  <p>Name :</p>
+                </div>
+                <div className="fullname text-[18px] text-[#BBB]">
+                  <p>Alex Kanz</p>
+                </div>
+              </div>
+              <div className='coachAge'>
+                <div className="age text-[20px] text-[#F5F5F5]">
+                  <p>Age :</p>
+                </div>
+                <div className="text-[18px] text-[#BBB]">
+                  <p>32 th</p>
+                </div>
+              </div>
             </div>
+            
           </div>
           <div className="location pl-[80px] mb-[30px]">
             <div className='text-[24px] text-[#BEE702] underline'><p>Detail Location</p></div>

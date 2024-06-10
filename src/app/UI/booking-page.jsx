@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import WhiteArrow from '../../assets/white-arrow';
+import WhiteArrow from '../assets/white-arrow';
 import "../../globals.css";
 
 // const DateBooking = () => {

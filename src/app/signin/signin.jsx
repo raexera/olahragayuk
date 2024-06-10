@@ -1,6 +1,6 @@
 import { Auth } from '@supabase/auth-ui-react'
 import { createClient } from '@supabase/supabase-js'
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const supabase = createClient(
   'https://vhbeprujgtyzsusmnqhb.supabase.co',

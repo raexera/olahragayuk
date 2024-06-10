@@ -1,10 +1,9 @@
-"use client";
+// "use client";
 
-import { useEffect, useState } from "react";
-import { getUser } from "@/services/user";
-import SignUp from "../app/components/UI/Login/SignUp"
-import SignIn from "./components/UI/Login/SignIn"
-import Biodata from "./components/UI/Login/Biodata"
+// import { useEffect, useState } from "react";
+// import { getUser } from "@/services/user";
+import LandingPage from "./UI/landing-page"
+// import Navbar from "./UI/navbar";
 
 
 
@@ -33,8 +32,8 @@ export default function Home() {
   return (
     <main className="w-full h-full bg-[#141414] overflow-hidden">
       <div className="flex flex-col items-center justify-center w-full h-full">
-        {/* <UserList /> */}
-        <SignIn />
+        {/* <Navbar /> */}
+        <LandingPage />
       </div>
     </main>
   );
