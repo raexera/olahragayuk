@@ -82,7 +82,7 @@ const SignInAuth = () => {
         },
       }}
       providers={["google"]}
-      view="sign_in"
+      view="sign_up"
       // showLinks={false}
     />
   );
