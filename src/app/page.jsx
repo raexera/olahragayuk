@@ -2,10 +2,8 @@
 
 // import { useEffect, useState } from "react";
 // import { getUser } from "@/services/user";
-import LandingPage from "./UI/landing-page"
-// import Navbar from "./UI/navbar";
-
-
+import LandingPage from "./UI/landing-page";
+import Loading from "./UI/loading";
 
 // const UserList = () => {
 //   const [users, setUsers] = useState([]);
@@ -32,7 +30,7 @@ export default function Home() {
   return (
     <main className="w-full h-full bg-[#141414] overflow-hidden">
       <div className="flex flex-col items-center justify-center w-full h-full">
-        {/* <Navbar /> */}
+        {/* <Loading /> */}
         <LandingPage />
       </div>
     </main>
