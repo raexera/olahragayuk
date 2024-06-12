@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <main
+    class="w-full h-full bg-[#141414] overflow-hidden"
+  >
+    <div
+      class="flex flex-col items-center justify-center w-full h-full"
+    >
+      <div
+        class="relative flex w-screen h-screen z-10"
+      >
+        <div
+          class="w-[35%] h-screen flex items-center justify-center ml-[50px]"
+        >
+          <div
+            class="w-full h-[300px] flex justify-center items-center text-center"
+          >
+            <div
+              class="text-[28px]"
+            >
+              <p>
+                <span>
+                  "
+                </span>
+                Your Complete 
+                <span>
+                  Sports
+                </span>
+                 Destination :
+                 
+                <span>
+                  Courts
+                </span>
+                , 
+                <span>
+                  Coaches
+                </span>
+                , and
+                 
+                <span>
+                  Competitions
+                </span>
+                 
+                <span>
+                  "
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-[65%] h-screen flex justify-center items-center mt-[30px]"
+        >
+          <div
+            class="flex justify-center items-center"
+          >
+            <img
+              alt="hero"
+              data-nimg="1"
+              decoding="async"
+              height="837"
+              loading="lazy"
+              src="/_next/image?url=%2Fhero.png&w=1920&q=75"
+              srcset="/_next/image?url=%2Fhero.png&w=828&q=75 1x, /_next/image?url=%2Fhero.png&w=1920&q=75 2x"
+              style="color: transparent;"
+              width="767"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+`;
