@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
-import Page from "../app/page";
+import Home from "../app/page";
 
 it("renders homepage unchanged", () => {
-  const { container } = render(<Page />);
+  const { container } = render(<Home />);
   expect(container).toMatchSnapshot();
 });

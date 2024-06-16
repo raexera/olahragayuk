@@ -1,37 +1,13 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import { getUser } from "@/services/user";
+import React from "react";
 import LandingPage from "./UI/landing-page";
-import Loading from "./UI/loading";
-
-// const UserList = () => {
-//   const [users, setUsers] = useState([]);
-
-//   useEffect(() => {
-//     const fetchUsers = async () => {
-//       const data = await getUser();
-//       setUsers(data);
-//     };
-
-//     fetchUsers();
-//   }, []);
-
-//   return (
-//     <div>
-//       {users.map((user) => (
-//         <div key={user.id}>{user.name}</div>
-//       ))}
-//     </div>
-//   );
-// };
+import MainFeature from "./UI/main-feature";
 
 export default function Home() {
   return (
     <main className="w-full h-full bg-[#141414] overflow-hidden">
       <div className="flex flex-col items-center justify-center w-full h-full">
-        {/* <Loading /> */}
         <LandingPage />
+        <MainFeature />
       </div>
     </main>
   );
