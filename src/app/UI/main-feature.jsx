@@ -119,7 +119,7 @@ const MainFeature = () => {
               fields.map((field) => (
                 <Card
                   key={field.fieldid}
-                  image={field.image || "/path/to/default/image.jpg"}
+                  image={field.image}
                   title={field.fieldname}
                   description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
                 />
