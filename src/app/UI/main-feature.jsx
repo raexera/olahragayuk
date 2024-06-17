@@ -127,30 +127,18 @@ const MainFeature = () => {
             {fields.length > 0 ? (
               fields.map((field) => (
                 <Card
+                  href="/detail-sewa"
                   key={field.fieldid}
                   image={field.image}
                   title={field.fieldname}
                   description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
                   onClick={() => handleFieldClick(field)}
-                  isSelected={
-                    selectedField && selectedField.fieldid === field.fieldid
-                  }
                 />
               ))
             ) : (
               <p>No fields found.</p>
             )}
           </div>
-          {selectedField && (
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={handleProceedClick}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                Proceed
-              </button>
-            </div>
-          )}
           <div className="flex mb-8">
             {features.find((feature) => feature.id === activeFeature).data}
           </div>

@@ -5,9 +5,11 @@ import { SignInBttn, SignUpBttn } from "./button";
 
 const OlahragaYukLogo = () => {
   return (
-    <div className="z-50">
-      <Image alt="logo" width={137} height={85} src="/olahragayuk-logo.png" />
-    </div>
+    <Link href="/">
+      <div className="z-50">
+        <Image alt="logo" width={137} height={85} src="/olahragayuk-logo.png" />
+      </div>
+    </Link>
   );
 };
 
@@ -23,7 +25,7 @@ const Menu = () => {
 
 export default function Navbar() {
   return (
-    <nav className="absolute z-50 flex w-screen h-30 items-center bg-transparent">
+    <nav className="absolute z-50 flex w-screen h-30 items-center">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-8 lg:px-16">
         <OlahragaYukLogo />
         <Menu />

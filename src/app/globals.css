@@ -29,6 +29,12 @@ body {
 span {
   color: #bee702;
 }
+
+nav {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14.5px);
+  -webkit-backdrop-filter: blur(14.5px);
+}
 /* @layer utilities {
   .text-balance {
     text-wrap: balance;
