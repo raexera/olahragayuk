@@ -35,12 +35,13 @@ export default function SearchPage() {
   }, [searchTerm]);
 
   return (
-    <div>
+    <div className="">
       <input
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Masukkan nama lapangan..."
+        placeholder="Search field name..."
+        className="w-[400px] h-[50px] bg-[#F5F5F5] rounded-[50px] px-[23px] outline-none text-[#141414] text-[18px] placeholder-[#717171] focus:ring-2 focus:ring-[#BEE702] caret-[#BEE702]"
       />
       <ul>
         {results.map((field) => (

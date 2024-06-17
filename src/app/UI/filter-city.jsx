@@ -21,8 +21,12 @@ const CityFilter = ({ onChange }) => {
 
   return (
     <div>
-      <select onChange={(e) => onChange(e.target.value)}>
-        <option value="">Pilih city</option>
+      <select
+        onChange={(e) => onChange(e.target.value)}
+        className="w-[200px] h-[50px] bg-[#F5F5F5] rounded-[50px] px-[13px] outline-none text-[#141414] text-[18px] focus:ring-2 focus:ring-[#BEE702] caret-[#BEE702]"
+      >
+        <option value="">City</option>
+
         {city.map((city, index) => (
           <option key={index} value={city.cityname}>
             {city.cityname}

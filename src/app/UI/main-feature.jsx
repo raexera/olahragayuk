@@ -80,31 +80,28 @@ const MainFeature = () => {
       </div>
 
       {/* Bagian Bawah*/}
-      <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px]">
-        <section className="container mx-auto p-4">
-          <div>
+      <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px] relative flex">
+        <section className="container mx-auto p-4 flex flex-col">
+          <div className="fitur w-full h-[60px] flex flex-row  items-center gap-[50px]">
             {/* search */}
             <div>
-              <h1>Field Search</h1>
               <SearchField />
-            </div>
-            {/* sport */}
-            <div>
-              <h1>Filtered Sports</h1>
-              <FilterSports onChange={handleFilterChangeSport} />
-              <ul>
-                {filteredDataSport.map((sport) => (
-                  <li key={sport.sportid}>{sport.sportname}</li>
-                ))}
-              </ul>
             </div>
             {/* city */}
             <div>
-              <h1>Filtered City</h1>
               <FilterCity onChange={handleFilterChangeCity} />
               <ul>
                 {filteredDataCity.map((city) => (
                   <li key={city.cityid}>{city.cityname}</li>
+                ))}
+              </ul>
+            </div>
+            {/* sport */}
+            <div>
+              <FilterSports onChange={handleFilterChangeSport} />
+              <ul>
+                {filteredDataSport.map((sport) => (
+                  <li key={sport.sportid}>{sport.sportname}</li>
                 ))}
               </ul>
             </div>
