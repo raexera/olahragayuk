@@ -41,26 +41,26 @@ const MainFeature = () => {
   const [selectedCity, setSelectedCity] = useState(null);
 
   useEffect(() => {
+    const fetchFields = async () => {
+      try {
+        let fetchedFields = [];
+        if (selectedSport && selectedCity) {
+          fetchedFields = await getFilteredFields(selectedCity, selectedSport);
+        } else if (selectedSport) {
+          fetchedFields = await getFilteredFields(null, selectedSport);
+        } else if (selectedCity) {
+          fetchedFields = await getFilteredFields(selectedCity, null);
+        } else {
+          fetchedFields = await getFields();
+        }
+        setFields(fetchedFields);
+      } catch (error) {
+        console.error("Error fetching fields:", error);
+      }
+    };
+
     fetchFields();
   }, [selectedSport, selectedCity]);
-
-  const fetchFields = async () => {
-    try {
-      let fetchedFields = [];
-      if (selectedSport && selectedCity) {
-        fetchedFields = await getFilteredFields(selectedCity, selectedSport);
-      } else if (selectedSport) {
-        fetchedFields = await getFilteredFields(null, selectedSport);
-      } else if (selectedCity) {
-        fetchedFields = await getFilteredFields(selectedCity, null);
-      } else {
-        fetchedFields = await getFields();
-      }
-      setFields(fetchedFields);
-    } catch (error) {
-      console.error("Error fetching fields:", error);
-    }
-  };
 
   const handleFilterChangeSport = (sportId) => {
     setSelectedSport(sportId);
