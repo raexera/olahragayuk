@@ -108,7 +108,7 @@ const MainFeature = () => {
       {/* Bottom Section */}
       <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px]">
         <section className="container mx-auto p-4">
-          <div>
+          <div className="flex flex-row gap-4">
             {/* Search */}
             <div>
               <h1>Field Search</h1>
