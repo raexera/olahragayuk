@@ -135,7 +135,8 @@ const MainFeature = () => {
                   key={field.fieldid}
                   image={field.image}
                   title={field.fieldname}
-                  description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
+                  description={`Location: ${field.location}`}
+                  description2={`Price: $${field.priceperhour}/hr`}
                   onClick={() => handleFieldClick(field)}
                 />
               ))
