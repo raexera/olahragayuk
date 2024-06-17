@@ -4,7 +4,8 @@ export const getSports = async () => {
   const { data, error } = await supabase.from("sport").select("*");
 
   if (error) {
-    throw new Error(error.message);
+    console.error("Error fetching sports:", error);
+    throw error;
   }
 
   return data;
@@ -18,7 +19,8 @@ export const getSportById = async (sportId) => {
     .single();
 
   if (error) {
-    throw new Error(error.message);
+    console.error(`Error fetching sport with ID ${sportId}:`, error);
+    throw error;
   }
 
   return data;

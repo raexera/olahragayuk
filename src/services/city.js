@@ -4,21 +4,23 @@ export const getCities = async () => {
   const { data, error } = await supabase.from("city").select("*");
 
   if (error) {
-    throw new Error(error.message);
+    console.error("Error fetching cities:", error);
+    throw error;
   }
 
   return data;
 };
 
-export const getCityById = async (cityId) => {
+export const getCityById = async (cityid) => {
   const { data, error } = await supabase
     .from("city")
     .select("*")
-    .eq("cityid", cityId)
+    .eq("cityid", cityid)
     .single();
 
   if (error) {
-    throw new Error(error.message);
+    console.error(`Error fetching city with ID ${cityid}:`, error);
+    throw error;
   }
 
   return data;
