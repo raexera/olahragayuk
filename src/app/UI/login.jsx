@@ -1,5 +1,4 @@
-
-import Head from 'next/head';
+import Head from "next/head";
 
 const SignIn = () => {
   return (
@@ -35,7 +34,7 @@ const SignIn = () => {
                     required
                   />
                 </div>
-              
+
                 <div className="flex justify-center">
                   <button
                     type="submit"
@@ -44,7 +43,6 @@ const SignIn = () => {
                     Login
                   </button>
                 </div>
-            
               </form>
             </div>
           </div>

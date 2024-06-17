@@ -57,7 +57,7 @@ const MainFeature = () => {
 
         if (searchTerm) {
           fetchedFields = fetchedFields.filter((field) =>
-            field.fieldname.toLowerCase().includes(searchTerm.toLowerCase())
+            field.fieldname.toLowerCase().includes(searchTerm.toLowerCase()),
           );
         }
 
