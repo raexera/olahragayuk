@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Sewa from "../assets/sewaLogo";
 import SewaActive from "../assets/sewaLogoOn";
 import Tutor from "../assets/tutorLogo";
@@ -42,54 +42,53 @@ const MainFeature = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
+    const fetchFields = async () => {
+      try {
+        let fetchedFields = [];
+        if (selectedSport && selectedCity) {
+          fetchedFields = await getFilteredFields(selectedCity, selectedSport);
+        } else if (selectedSport) {
+          fetchedFields = await getFilteredFields(null, selectedSport);
+        } else if (selectedCity) {
+          fetchedFields = await getFilteredFields(selectedCity, null);
+        } else {
+          fetchedFields = await getFields();
+        }
+
+        if (searchTerm) {
+          fetchedFields = fetchedFields.filter((field) =>
+            field.fieldname.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        }
+
+        setFields(fetchedFields);
+      } catch (error) {
+        console.error("Error fetching fields:", error);
+      }
+    };
+
     fetchFields();
   }, [selectedSport, selectedCity, searchTerm]);
 
-  const fetchFields = async () => {
-    try {
-      let fetchedFields = [];
-      if (selectedSport && selectedCity) {
-        fetchedFields = await getFilteredFields(selectedCity, selectedSport);
-      } else if (selectedSport) {
-        fetchedFields = await getFilteredFields(null, selectedSport);
-      } else if (selectedCity) {
-        fetchedFields = await getFilteredFields(selectedCity, null);
-      } else {
-        fetchedFields = await getFields();
-      }
-
-      // Filter based on search term if it exists
-      if (searchTerm) {
-        fetchedFields = fetchedFields.filter((field) =>
-          field.fieldname.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      }
-
-      setFields(fetchedFields);
-    } catch (error) {
-      console.error("Error fetching fields:", error);
-    }
-  };
-
-  const handleFilterChangeSport = (sportId) => {
+  const handleFilterChangeSport = useCallback((sportId) => {
     setSelectedSport(sportId);
-  };
+  }, []);
 
-  const handleFilterChangeCity = (cityId) => {
+  const handleFilterChangeCity = useCallback((cityId) => {
     setSelectedCity(cityId);
-  };
+  }, []);
 
-  const handleFeatureClick = (id) => {
+  const handleFeatureClick = useCallback((id) => {
     setActiveFeature(id);
-  };
+  }, []);
 
-  const handleFieldClick = (field) => {
+  const handleFieldClick = useCallback((field) => {
     console.log("Selected field:", field);
-  };
+  }, []);
 
-  const handleSearch = (searchTerm) => {
+  const handleSearch = useCallback((searchTerm) => {
     setSearchTerm(searchTerm);
-  };
+  }, []);
 
   return (
     <div className="relative flex flex-col w-screen h-full">
@@ -113,7 +112,7 @@ const MainFeature = () => {
       {/* Bottom Section */}
       <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px] relative flex">
         <section className="container mx-auto p-4 flex flex-col">
-          <div className="fitur w-full h-[60px] flex flex-row  items-center gap-[50px]">
+          <div className="fitur w-full h-[60px] flex flex-row items-center gap-[50px]">
             {/* Search */}
             <div>
               <SearchPage onSearch={handleSearch} />
