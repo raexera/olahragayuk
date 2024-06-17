@@ -11,21 +11,12 @@ const SportFilter = ({ onChange }) => {
   }, []);
 
   const fetchSports = async () => {
-<<<<<<< HEAD
-    let { data: sport, error } = await supabase
-      .from("sport")
-      .select("sportname")
-      .in("sportname", ["Basket", "Football", "Volley"]);
-    if (error) console.error("Error fetching sports:", error);
-    else setSport(sport);
-=======
     try {
       const sportData = await getSports();
       setSport(sportData);
     } catch (error) {
       console.error("Error fetching sports:", error);
     }
->>>>>>> c0b9309152540504544a428bd900800103728f64
   };
 
   return (

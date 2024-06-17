@@ -87,7 +87,7 @@ const MainFeature = () => {
   };
 
   return (
-    <div className="relative flex flex-col w-screen h-screen">
+    <div className="relative flex flex-col w-screen h-full">
       {/* Top Section */}
       <div className="flex flex-row w-full h-[200px] items-center justify-center gap-[50px]">
         {features.map((feature) => (
@@ -105,70 +105,54 @@ const MainFeature = () => {
         ))}
       </div>
 
-      {/* Bagian Bawah*/}
+      {/* Bttm Section*/}
       <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px] relative flex">
         <section className="container mx-auto p-4 flex flex-col">
           <div className="fitur w-full h-[60px] flex flex-row  items-center gap-[50px]">
-            {/* search */}
-            {/* Bottom Section */}
             {/* Search */}
             <div>
               <SearchField />
             </div>
-            {/* city */}
+            {/* Sport Filter */}
             <div>
-              {/* Sport Filter */}
-              <div>
-                <h1>Filter by Sports</h1>
-                <FilterSports onChange={handleFilterChangeSport} />
-              </div>
-              {/* City Filter */}
-              <div>
-                <h1>Filter by City</h1>
-                <FilterCity onChange={handleFilterChangeCity} />
-              </div>
-              {/* sport */}
-              <div>
-                <FilterSports onChange={handleFilterChangeSport} />
-                <ul>
-                  {filteredDataSport.map((sport) => (
-                    <li key={sport.sportid}>{sport.sportname}</li>
-                  ))}
-                </ul>
-              </div>
+              <FilterSports onChange={handleFilterChangeSport} />
             </div>
-            {/* Fields List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-              {fields.length > 0 ? (
-                fields.map((field) => (
-                  <Card
-                    key={field.fieldid}
-                    image={field.image}
-                    title={field.fieldname}
-                    description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
-                    onClick={() => handleFieldClick(field)}
-                    isSelected={
-                      selectedField && selectedField.fieldid === field.fieldid
-                    }
-                  />
-                ))
-              ) : (
-                <p>No fields found.</p>
-              )}
+            {/* City Filter */}
+            <div>
+              <FilterCity onChange={handleFilterChangeCity} />
             </div>
-            {selectedField && (
-              <div className="flex justify-center mt-4">
-                <button
-                  onClick={handleProceedClick}
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                  Proceed
-                </button>
-              </div>
+          </div>
+          {/* Fields List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+            {fields.length > 0 ? (
+              fields.map((field) => (
+                <Card
+                  key={field.fieldid}
+                  image={field.image}
+                  title={field.fieldname}
+                  description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
+                  onClick={() => handleFieldClick(field)}
+                  isSelected={
+                    selectedField && selectedField.fieldid === field.fieldid
+                  }
+                />
+              ))
+            ) : (
+              <p>No fields found.</p>
             )}
-            <div className="flex mb-8">
-              {features.find((feature) => feature.id === activeFeature).data}
+          </div>
+          {selectedField && (
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={handleProceedClick}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Proceed
+              </button>
             </div>
+          )}
+          <div className="flex mb-8">
+            {features.find((feature) => feature.id === activeFeature).data}
           </div>
         </section>
       </div>
