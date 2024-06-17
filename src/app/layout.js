@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${michroma.className} antialiased `}>
-        {/* <Navbar /> */}
+        <Navbar />
         {children}
       </body>
     </html>

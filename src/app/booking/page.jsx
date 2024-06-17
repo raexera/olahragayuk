@@ -2,65 +2,7 @@
 
 import React, { useState } from "react";
 import WhiteArrow from "../assets/white-arrow";
-import "../globals.css";
-
-// const DateBooking = () => {
-//   const [bookingDate, setBookingDate] = useState('');
-
-//   const handleDateChange = (e) => {
-//     setBookingDate(e.target.value);
-//   };
-
-//   return (
-//     <div>
-//       <div className="p-3 bg-[#F5F5F5] rounded shadow-md">
-//         <input
-//           type="date"
-//           value={bookingDate}
-//           onChange={handleDateChange}
-//           className="w-full px-2 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702]"
-//         />
-//       </div>
-//       <div>
-//         {bookingDate && (
-//           <p className="mt-2 text-[#BEE702]">
-//             Selected Date: {new Date(bookingDate).toLocaleDateString()}
-//           </p>
-//         )}
-//       </div>
-//     </div>
-
-//   )
-// }
-
-// const TimeBooking = () => {
-//   const [bookingTime, setBookingTime] = useState('');
-
-//   const handleTimeChange = (e) => {
-//     setBookingTime(e.target.value);
-//   };
-
-//   return (
-//     <div>
-//       <div className="p-3 bg-[#F5F5F5] rounded shadow-md">
-//       <input
-//           type="time"
-//           value={bookingTime}
-//           onChange={handleTimeChange}
-//           className="w-full px-2 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702]"
-//         />
-//       </div>
-//       <div>
-//         {bookingTime && (
-//           <p className="mt-2 text-[#BEE702]">
-//             Selected Time: {bookingTime}
-//           </p>
-//         )}
-//       </div>
-//     </div>
-
-//   )
-// }
+// import "../globals.css";
 
 const DateSelector = ({ bookingDate, handleDateChange }) => {
   return (
@@ -69,7 +11,7 @@ const DateSelector = ({ bookingDate, handleDateChange }) => {
         type="date"
         value={bookingDate}
         onChange={handleDateChange}
-        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+        className="w-full px-4 py-2 border rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
     </div>
   );
@@ -87,7 +29,7 @@ const TimeSelector = ({
         type="time"
         value={bookingTime}
         onChange={handleTimeChange}
-        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+        className="w-full px-4 py-2 border rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
       <div className="text-[24px]">
         <h1>Select Duration</h1>
@@ -95,7 +37,7 @@ const TimeSelector = ({
       <select
         value={duration}
         onChange={handleDurationChange}
-        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+        className="w-full px-4 py-2 border rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       >
         {[...Array(24)].map((_, i) => (
           <option key={i + 1} value={i + 1}>
@@ -114,7 +56,7 @@ const NameBooking = ({ bookingName, handleNameChange }) => {
         type="text"
         value={bookingName}
         onChange={handleNameChange}
-        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+        className="w-full px-4 py-2 border rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
     </div>
   );
@@ -127,7 +69,7 @@ const EmailBooking = ({ bookingEmail, handleEmailChange }) => {
         type="email"
         value={bookingEmail}
         onChange={handleEmailChange}
-        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+        className="w-full px-4 py-2 border rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
     </div>
   );
@@ -140,7 +82,7 @@ const PhoneBooking = ({ bookingPhone, handlePhoneChange }) => {
         type="number"
         value={bookingPhone}
         onChange={handlePhoneChange}
-        className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
+        className="w-full px-4 py-2 border rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
     </div>
   );
