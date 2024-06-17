@@ -42,13 +42,17 @@ const MainFeature = () => {
 
   useEffect(() => {
     fetchFields();
-  }, []);
+  }, [selectedSport, selectedCity]);
 
   const fetchFields = async () => {
     try {
       let fetchedFields = [];
       if (selectedSport && selectedCity) {
         fetchedFields = await getFilteredFields(selectedCity, selectedSport);
+      } else if (selectedSport) {
+        fetchedFields = await getFilteredFields(null, selectedSport);
+      } else if (selectedCity) {
+        fetchedFields = await getFilteredFields(selectedCity, null);
       } else {
         fetchedFields = await getFields();
       }
