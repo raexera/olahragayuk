@@ -10,7 +10,8 @@ import TurnamenActive from "../assets/turnamenLogoOn";
 import FilterSports from "./filter-sports";
 import FilterCity from "./filter-city";
 import SearchField from "./search-sewayuk";
-import supabase from "../../lib/supabase";
+import Card from "./card";
+import { getFields, getFilteredFields } from "../../services/field";
 
 const features = [
   {
@@ -35,25 +36,34 @@ const features = [
 
 const MainFeature = () => {
   const [activeFeature, setActiveFeature] = useState(features[0].id);
-  const [filteredDataSport, setFilteredDataSport] = useState([]);
-  const [filteredDataCity, setFilteredDataCity] = useState([]);
+  const [fields, setFields] = useState([]);
+  const [selectedSport, setSelectedSport] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
 
-  const handleFilterChangeSport = async (selectedSport) => {
-    let { data: filteredDataSport, error } = await supabase
-      .from("sport")
-      .select("*")
-      .eq("sportname", selectedSport);
-    if (error) console.error("Error filtering sports:", error);
-    else setFilteredDataSport(filteredDataSport);
+  useEffect(() => {
+    fetchFields();
+  }, []);
+
+  const fetchFields = async () => {
+    try {
+      let fetchedFields = [];
+      if (selectedSport && selectedCity) {
+        fetchedFields = await getFilteredFields(selectedCity, selectedSport);
+      } else {
+        fetchedFields = await getFields();
+      }
+      setFields(fetchedFields);
+    } catch (error) {
+      console.error("Error fetching fields:", error);
+    }
   };
 
-  const handleFilterChangeCity = async (selectedCity) => {
-    let { data: filteredDataCity, error } = await supabase
-      .from("city")
-      .select("*")
-      .eq("cityname", selectedCity);
-    if (error) console.error("Error filtering city:", error);
-    else setFilteredDataCity(filteredDataCity);
+  const handleFilterChangeSport = (sportId) => {
+    setSelectedSport(sportId);
+  };
+
+  const handleFilterChangeCity = (cityId) => {
+    setSelectedCity(cityId);
   };
 
   const handleFeatureClick = (id) => {
@@ -62,7 +72,7 @@ const MainFeature = () => {
 
   return (
     <div className="relative flex flex-col w-screen h-screen">
-      {/* Bagian Atas */}
+      {/* Top Section */}
       <div className="flex flex-row w-full h-[200px] items-center justify-center gap-[50px]">
         {features.map((feature) => (
           <div
@@ -79,35 +89,40 @@ const MainFeature = () => {
         ))}
       </div>
 
-      {/* Bagian Bawah*/}
+      {/* Bottom Section */}
       <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px]">
         <section className="container mx-auto p-4">
           <div>
-            {/* search */}
+            {/* Search */}
             <div>
               <h1>Field Search</h1>
               <SearchField />
             </div>
-            {/* sport */}
+            {/* Sport Filter */}
             <div>
-              <h1>Filtered Sports</h1>
+              <h1>Filter by Sports</h1>
               <FilterSports onChange={handleFilterChangeSport} />
-              <ul>
-                {filteredDataSport.map((sport) => (
-                  <li key={sport.sportid}>{sport.sportname}</li>
-                ))}
-              </ul>
             </div>
-            {/* city */}
+            {/* City Filter */}
             <div>
-              <h1>Filtered City</h1>
+              <h1>Filter by City</h1>
               <FilterCity onChange={handleFilterChangeCity} />
-              <ul>
-                {filteredDataCity.map((city) => (
-                  <li key={city.cityid}>{city.cityname}</li>
-                ))}
-              </ul>
             </div>
+          </div>
+          {/* Fields List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+            {fields.length > 0 ? (
+              fields.map((field) => (
+                <Card
+                  key={field.fieldid}
+                  image={field.image || "/path/to/default/image.jpg"}
+                  title={field.fieldname}
+                  description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
+                />
+              ))
+            ) : (
+              <p>No fields found.</p>
+            )}
           </div>
           <div className="flex mb-8">
             {features.find((feature) => feature.id === activeFeature).data}
