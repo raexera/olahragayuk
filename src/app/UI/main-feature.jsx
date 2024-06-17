@@ -9,7 +9,7 @@ import Turnamen from "../assets/turnamenLogo";
 import TurnamenActive from "../assets/turnamenLogoOn";
 import FilterSports from "./filter-sports";
 import FilterCity from "./filter-city";
-import SearchField from "./search-sewayuk";
+import SearchPage from "./search-sewayuk";
 import Card from "./card";
 import { getFields, getFilteredFields } from "../../services/field";
 
@@ -39,29 +39,37 @@ const MainFeature = () => {
   const [fields, setFields] = useState([]);
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedField, setSelectedField] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const fetchFields = async () => {
-      try {
-        let fetchedFields = [];
-        if (selectedSport && selectedCity) {
-          fetchedFields = await getFilteredFields(selectedCity, selectedSport);
-        } else if (selectedSport) {
-          fetchedFields = await getFilteredFields(null, selectedSport);
-        } else if (selectedCity) {
-          fetchedFields = await getFilteredFields(selectedCity, null);
-        } else {
-          fetchedFields = await getFields();
-        }
-        setFields(fetchedFields);
-      } catch (error) {
-        console.error("Error fetching fields:", error);
-      }
-    };
-
     fetchFields();
-  }, [selectedSport, selectedCity]);
+  }, [selectedSport, selectedCity, searchTerm]);
+
+  const fetchFields = async () => {
+    try {
+      let fetchedFields = [];
+      if (selectedSport && selectedCity) {
+        fetchedFields = await getFilteredFields(selectedCity, selectedSport);
+      } else if (selectedSport) {
+        fetchedFields = await getFilteredFields(null, selectedSport);
+      } else if (selectedCity) {
+        fetchedFields = await getFilteredFields(selectedCity, null);
+      } else {
+        fetchedFields = await getFields();
+      }
+
+      // Filter based on search term if it exists
+      if (searchTerm) {
+        fetchedFields = fetchedFields.filter((field) =>
+          field.fieldname.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
+      setFields(fetchedFields);
+    } catch (error) {
+      console.error("Error fetching fields:", error);
+    }
+  };
 
   const handleFilterChangeSport = (sportId) => {
     setSelectedSport(sportId);
@@ -76,13 +84,11 @@ const MainFeature = () => {
   };
 
   const handleFieldClick = (field) => {
-    setSelectedField(field);
+    console.log("Selected field:", field);
   };
 
-  const handleProceedClick = () => {
-    if (selectedField) {
-      console.log("Proceeding with field:", selectedField);
-    }
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
   };
 
   return (
@@ -104,13 +110,13 @@ const MainFeature = () => {
         ))}
       </div>
 
-      {/* Bttm Section*/}
+      {/* Bottom Section */}
       <div className="bg-[#f5f5f5] bg-opacity-50 backdrop-blur-4 h-full mt-4 rounded-tl-[30px] rounded-tr-[30px] p-[10px] relative flex">
         <section className="container mx-auto p-4 flex flex-col">
           <div className="fitur w-full h-[60px] flex flex-row  items-center gap-[50px]">
             {/* Search */}
             <div>
-              <SearchField />
+              <SearchPage onSearch={handleSearch} />
             </div>
             {/* Sport Filter */}
             <div>
