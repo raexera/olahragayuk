@@ -81,7 +81,6 @@ const MainFeature = () => {
 
   const handleProceedClick = () => {
     if (selectedField) {
-      // Handle the proceed action here
       console.log("Proceeding with field:", selectedField);
     }
   };

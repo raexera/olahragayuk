@@ -19,3 +19,13 @@ export function SignUpBttn({ href }) {
     </Link>
   );
 }
+
+export function BookBttn({ href }) {
+  return (
+    <Link href={href}>
+      <button className="w-[200px] h-[50px] bg-[#BEE702] text-[#141414] text-[14px] rounded-[12px]">
+        Book Now
+      </button>
+    </Link>
+  );
+}

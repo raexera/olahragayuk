@@ -2,18 +2,14 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Arrow from "../assets/arrow";
+import { BookBttn } from "../UI/button";
 
-const DetailSewa = () => {
+const DetailSewa = ({ image, title }) => {
   return (
     <div className="relative flex flex-col">
       <div className="w-screen h-[780px] bg-[#BBBBBB] relative flex items-center justify-center pt-[60px] ">
         <div className="w-[1340px] h-[600px] rounded-[12px] bg-[#F5F5F5] border-black border-[1px] flex items-center justify-center">
-          <Image
-            alt="lapangan-image"
-            width={1340}
-            height={600}
-            src="/hero1.png"
-          />
+          <Image src={image} alt={title} width={1340} height={600} />
         </div>
       </div>
 
@@ -85,11 +81,7 @@ const DetailSewa = () => {
 
         <div className="h-[200px] flex items-center justify-center">
           <div className="bookBtn">
-            <Link href="">
-              <button className="w-[200px] h-[50px] bg-[#BEE702] text-[#141414] text-[14px] rounded-[12px]">
-                Book Now
-              </button>
-            </Link>
+            <BookBttn href="/booking" />
           </div>
         </div>
       </div>

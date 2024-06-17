@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import WhiteArrow from '../assets/white-arrow';
-import "../../globals.css";
+import React, { useState } from "react";
+import WhiteArrow from "../assets/white-arrow";
+import "../globals.css";
 
 // const DateBooking = () => {
 //   const [bookingDate, setBookingDate] = useState('');
@@ -29,7 +29,7 @@ import "../../globals.css";
 //         )}
 //       </div>
 //     </div>
-    
+
 //   )
 // }
 
@@ -58,7 +58,7 @@ import "../../globals.css";
 //         )}
 //       </div>
 //     </div>
-    
+
 //   )
 // }
 
@@ -75,7 +75,12 @@ const DateSelector = ({ bookingDate, handleDateChange }) => {
   );
 };
 
-const TimeSelector = ({ bookingTime, handleTimeChange, duration, handleDurationChange }) => {
+const TimeSelector = ({
+  bookingTime,
+  handleTimeChange,
+  duration,
+  handleDurationChange,
+}) => {
   return (
     <div className="time-selector">
       <input
@@ -84,7 +89,7 @@ const TimeSelector = ({ bookingTime, handleTimeChange, duration, handleDurationC
         onChange={handleTimeChange}
         className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       />
-      <div className='text-[24px]'>
+      <div className="text-[24px]">
         <h1>Select Duration</h1>
       </div>
       <select
@@ -93,7 +98,9 @@ const TimeSelector = ({ bookingTime, handleTimeChange, duration, handleDurationC
         className="w-full px-4 py-2 border rounded-md text-[#141414] focus:outline-none focus:ring-2 focus:ring-[#BEE702] mb-2"
       >
         {[...Array(24)].map((_, i) => (
-          <option key={i + 1} value={i + 1}>{i + 1} hour{ i + 1 > 1 ? 's' : ''}</option>
+          <option key={i + 1} value={i + 1}>
+            {i + 1} hour{i + 1 > 1 ? "s" : ""}
+          </option>
         ))}
       </select>
     </div>
@@ -111,8 +118,7 @@ const NameBooking = ({ bookingName, handleNameChange }) => {
       />
     </div>
   );
-
-}
+};
 
 const EmailBooking = ({ bookingEmail, handleEmailChange }) => {
   return (
@@ -125,7 +131,7 @@ const EmailBooking = ({ bookingEmail, handleEmailChange }) => {
       />
     </div>
   );
-}
+};
 
 const PhoneBooking = ({ bookingPhone, handlePhoneChange }) => {
   return (
@@ -138,15 +144,15 @@ const PhoneBooking = ({ bookingPhone, handlePhoneChange }) => {
       />
     </div>
   );
-}
+};
 
 const BookingPage = () => {
-  const [bookingDate, setBookingDate] = useState('');
-  const [bookingTime, setBookingTime] = useState('');
+  const [bookingDate, setBookingDate] = useState("");
+  const [bookingTime, setBookingTime] = useState("");
   const [duration, setDuration] = useState(1);
-  const [bookingName, setBookingName] = useState('');
-  const [bookingEmail, setBookingEmail] = useState('');
-  const [bookingPhone, setBookingPhone] = useState('');
+  const [bookingName, setBookingName] = useState("");
+  const [bookingEmail, setBookingEmail] = useState("");
+  const [bookingPhone, setBookingPhone] = useState("");
 
   const handleDateChange = (e) => {
     setBookingDate(e.target.value);
@@ -161,7 +167,7 @@ const BookingPage = () => {
   };
 
   const calculateEndTime = (date, time, duration) => {
-    const [hours, minutes] = time.split(':').map(Number);
+    const [hours, minutes] = time.split(":").map(Number);
     const endTime = new Date(date);
     endTime.setHours(hours + parseInt(duration), minutes);
     return endTime.toTimeString().slice(0, 5);
@@ -180,59 +186,71 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="w-screen h-screen relative flex items-center justify-center">
+    <div className="w-screen h-screen relative flex items-center justify-center pt-[70px]">
       <div className="w-screen h-[90%] mx-[50px] flex flex-row gap-[50px]">
         <div className="left w-[60%] h-full bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[30px] pt-[30px] pb-[20px] flex flex-row">
-          <div className="arrw pt-[10px]"><WhiteArrow /></div>
+          <div className="arrw pt-[10px]">
+            <WhiteArrow />
+          </div>
           <div className="ml-[40px]">
             <div className="head h-[80px] w-full text-[34px] text-[#BEE702]">
-                <h1>Booking</h1>
+              <h1>Booking</h1>
             </div>
             <div className="body flex flex-col justify-between">
               <div className="date">
-                <div className='text-[24px]'>
+                <div className="text-[24px]">
                   <h1>Select Date</h1>
                 </div>
                 <div>
-                  <DateSelector bookingDate={bookingDate} handleDateChange={handleDateChange} />
+                  <DateSelector
+                    bookingDate={bookingDate}
+                    handleDateChange={handleDateChange}
+                  />
                 </div>
               </div>
 
               <div className="time">
-                <div className='text-[24px]'>
+                <div className="text-[24px]">
                   <h1>Select Time</h1>
                 </div>
                 <div>
-                  <TimeSelector 
-                  bookingTime={bookingTime} 
-                  handleTimeChange={handleTimeChange} 
-                  duration={duration} 
-                  handleDurationChange={handleDurationChange} 
-                />
+                  <TimeSelector
+                    bookingTime={bookingTime}
+                    handleTimeChange={handleTimeChange}
+                    duration={duration}
+                    handleDurationChange={handleDurationChange}
+                  />
                 </div>
               </div>
 
               <div className="name">
-                <div className='text-[24px]'>
+                <div className="text-[24px]">
                   <h1>Orderer Name</h1>
                 </div>
-                <NameBooking bookingName={bookingName} handleNameChange={handleNameChange} />
+                <NameBooking
+                  bookingName={bookingName}
+                  handleNameChange={handleNameChange}
+                />
               </div>
 
               <div className="email">
-                <div className='text-[24px]'>
+                <div className="text-[24px]">
                   <h1>Ordered Email</h1>
                 </div>
-                <EmailBooking bookingEmail={bookingEmail} handleEmailChange={handleEmailChange} />
-                <div>
-
-                </div>
+                <EmailBooking
+                  bookingEmail={bookingEmail}
+                  handleEmailChange={handleEmailChange}
+                />
+                <div></div>
               </div>
               <div className="phone">
-                <div className='text-[24px]'>
+                <div className="text-[24px]">
                   <h1>Phone Number</h1>
                 </div>
-                <PhoneBooking bookingPhone={bookingPhone} handlePhoneChange={handlePhoneChange} />
+                <PhoneBooking
+                  bookingPhone={bookingPhone}
+                  handlePhoneChange={handlePhoneChange}
+                />
               </div>
             </div>
           </div>
@@ -244,30 +262,32 @@ const BookingPage = () => {
               <h1>Booking Details</h1>
             </div>
             <div>
-            <div className="summary">
-                {bookingDate &&(
+              <div className="summary">
+                {bookingDate && (
                   <p className="text-[#F5F5F5]">
                     <span>Selected Date:</span> {bookingDate} <br />
                   </p>
                 )}
-                {bookingTime &&(
+                {bookingTime && (
                   <p className="text-[#F5F5F5]">
                     <span>Start Time:</span> {bookingTime} <br />
                     <span>Duration:</span> {duration} hour(s) <br />
-                    <span>End Time:</span> {calculateEndTime(bookingDate, bookingTime, duration)} <br />
+                    <span>End Time:</span>{" "}
+                    {calculateEndTime(bookingDate, bookingTime, duration)}{" "}
+                    <br />
                   </p>
                 )}
-                {bookingName &&(
+                {bookingName && (
                   <p className="text-[#F5F5F5]">
                     <span>Orderer Name:</span> {bookingName} <br />
                   </p>
                 )}
-                {bookingEmail &&(
+                {bookingEmail && (
                   <p className="text-[#F5F5F5]">
                     <span>Ordered Email:</span> {bookingEmail} <br />
                   </p>
                 )}
-                {bookingPhone &&(
+                {bookingPhone && (
                   <p className="text-[#F5F5F5]">
                     <span>Phone Number:</span> {bookingPhone} <br />
                   </p>
@@ -284,7 +304,9 @@ const BookingPage = () => {
               <p className="text-[#BEE702] text-[20px]">Rp. 100.000</p>
             </div>
             <div className="bttn">
-              <button className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md">Proceed to Payment </button>
+              <button className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md">
+                Proceed to Payment{" "}
+              </button>
             </div>
           </div>
         </div>
