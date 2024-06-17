@@ -132,7 +132,7 @@ const BookingPage = () => {
       <div className="w-screen h-[90%] mx-[50px] flex flex-row gap-[50px]">
         <div className="left w-[60%] h-full bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[30px] pt-[30px] pb-[20px] flex flex-row">
           <div className="arrw pt-[10px]">
-            <WhiteArrow />
+            <WhiteArrow href="/detail-sewa"/>
           </div>
           <div className="ml-[40px]">
             <div className="head h-[80px] w-full text-[34px] text-[#BEE702]">

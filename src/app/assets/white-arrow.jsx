@@ -1,7 +1,9 @@
 import React from "react";
+import Link from "next/link";
 
-export default function Arrow() {
+export default function Arrow({ href }) {
   return (
+    <Link href={href}>
     <svg
       width="30"
       height="31"
@@ -14,5 +16,6 @@ export default function Arrow() {
         fill="#F5F5F5"
       />
     </svg>
+    </Link>
   );
 }
