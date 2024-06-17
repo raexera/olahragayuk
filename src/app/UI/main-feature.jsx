@@ -10,7 +10,8 @@ import TurnamenActive from "../assets/turnamenLogoOn";
 import FilterSports from "./filter-sports";
 import FilterCity from "./filter-city";
 import SearchField from "./search-sewayuk";
-import supabase from "../../lib/supabase";
+import Card from "./card";
+import { getFields, getFilteredFields } from "../../services/field";
 
 const features = [
   {
@@ -35,34 +36,59 @@ const features = [
 
 const MainFeature = () => {
   const [activeFeature, setActiveFeature] = useState(features[0].id);
-  const [filteredDataSport, setFilteredDataSport] = useState([]);
-  const [filteredDataCity, setFilteredDataCity] = useState([]);
+  const [fields, setFields] = useState([]);
+  const [selectedSport, setSelectedSport] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedField, setSelectedField] = useState(null);
 
-  const handleFilterChangeSport = async (selectedSport) => {
-    let { data: filteredDataSport, error } = await supabase
-      .from("sport")
-      .select("*")
-      .eq("sportname", selectedSport);
-    if (error) console.error("Error filtering sports:", error);
-    else setFilteredDataSport(filteredDataSport);
+  useEffect(() => {
+    const fetchFields = async () => {
+      try {
+        let fetchedFields = [];
+        if (selectedSport && selectedCity) {
+          fetchedFields = await getFilteredFields(selectedCity, selectedSport);
+        } else if (selectedSport) {
+          fetchedFields = await getFilteredFields(null, selectedSport);
+        } else if (selectedCity) {
+          fetchedFields = await getFilteredFields(selectedCity, null);
+        } else {
+          fetchedFields = await getFields();
+        }
+        setFields(fetchedFields);
+      } catch (error) {
+        console.error("Error fetching fields:", error);
+      }
+    };
+
+    fetchFields();
+  }, [selectedSport, selectedCity]);
+
+  const handleFilterChangeSport = (sportId) => {
+    setSelectedSport(sportId);
   };
 
-  const handleFilterChangeCity = async (selectedCity) => {
-    let { data: filteredDataCity, error } = await supabase
-      .from("city")
-      .select("*")
-      .eq("cityname", selectedCity);
-    if (error) console.error("Error filtering city:", error);
-    else setFilteredDataCity(filteredDataCity);
+  const handleFilterChangeCity = (cityId) => {
+    setSelectedCity(cityId);
   };
 
   const handleFeatureClick = (id) => {
     setActiveFeature(id);
   };
 
+  const handleFieldClick = (field) => {
+    setSelectedField(field);
+  };
+
+  const handleProceedClick = () => {
+    if (selectedField) {
+      // Handle the proceed action here
+      console.log("Proceeding with field:", selectedField);
+    }
+  };
+
   return (
     <div className="relative flex flex-col w-screen h-screen">
-      {/* Bagian Atas */}
+      {/* Top Section */}
       <div className="flex flex-row w-full h-[200px] items-center justify-center gap-[50px]">
         {features.map((feature) => (
           <div
@@ -84,30 +110,65 @@ const MainFeature = () => {
         <section className="container mx-auto p-4 flex flex-col">
           <div className="fitur w-full h-[60px] flex flex-row  items-center gap-[50px]">
             {/* search */}
+            {/* Bottom Section */}
+            {/* Search */}
             <div>
               <SearchField />
             </div>
             {/* city */}
             <div>
-              <FilterCity onChange={handleFilterChangeCity} />
-              <ul>
-                {filteredDataCity.map((city) => (
-                  <li key={city.cityid}>{city.cityname}</li>
-                ))}
-              </ul>
+              {/* Sport Filter */}
+              <div>
+                <h1>Filter by Sports</h1>
+                <FilterSports onChange={handleFilterChangeSport} />
+              </div>
+              {/* City Filter */}
+              <div>
+                <h1>Filter by City</h1>
+                <FilterCity onChange={handleFilterChangeCity} />
+              </div>
+              {/* sport */}
+              <div>
+                <FilterSports onChange={handleFilterChangeSport} />
+                <ul>
+                  {filteredDataSport.map((sport) => (
+                    <li key={sport.sportid}>{sport.sportname}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            {/* sport */}
-            <div>
-              <FilterSports onChange={handleFilterChangeSport} />
-              <ul>
-                {filteredDataSport.map((sport) => (
-                  <li key={sport.sportid}>{sport.sportname}</li>
-                ))}
-              </ul>
+            {/* Fields List */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+              {fields.length > 0 ? (
+                fields.map((field) => (
+                  <Card
+                    key={field.fieldid}
+                    image={field.image}
+                    title={field.fieldname}
+                    description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
+                    onClick={() => handleFieldClick(field)}
+                    isSelected={
+                      selectedField && selectedField.fieldid === field.fieldid
+                    }
+                  />
+                ))
+              ) : (
+                <p>No fields found.</p>
+              )}
             </div>
-          </div>
-          <div className="flex mb-8">
-            {features.find((feature) => feature.id === activeFeature).data}
+            {selectedField && (
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={handleProceedClick}
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                  Proceed
+                </button>
+              </div>
+            )}
+            <div className="flex mb-8">
+              {features.find((feature) => feature.id === activeFeature).data}
+            </div>
           </div>
         </section>
       </div>

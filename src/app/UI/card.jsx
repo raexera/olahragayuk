@@ -1,10 +1,14 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
-const Card = ({ image, title, description }) => {
+const Card = ({ image, title, description, onClick, isSelected }) => {
   return (
-    <div className="flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden">
+    <div
+      onClick={onClick}
+      className={`flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden cursor-pointer border-4 ${
+        isSelected ? "border-blue-500" : "border-transparent"
+      }`}
+    >
       <Image
         src={image}
         alt={title}

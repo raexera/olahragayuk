@@ -1,43 +1,55 @@
-import supabase from "@/lib/supabase";
+import supabase from "../lib/supabase";
 
 export const getFields = async () => {
-  const { data, error } = await supabase.from("Field").select("*");
+  const { data, error } = await supabase.from("field").select("*");
 
   if (error) {
-    throw new Error(error.message);
+    console.error("Error fetching fields:", error);
+    throw error;
   }
 
   return data;
 };
 
-export const createField = async (field) => {
-  const { data, error } = await supabase.from("Field").insert(field);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
-
-export const updateField = async (id, field) => {
+export const getFieldById = async (fieldid) => {
   const { data, error } = await supabase
-    .from("Field")
-    .update(field)
-    .match({ id });
+    .from("field")
+    .select("*")
+    .eq("fieldid", fieldid)
+    .single();
 
   if (error) {
-    throw new Error(error.message);
+    console.error(`Error fetching field with ID ${fieldid}:`, error);
+    throw error;
   }
 
   return data;
 };
 
-export const deleteField = async (id) => {
-  const { data, error } = await supabase.from("Field").delete().match({ id });
+export const getFilteredFields = async (cityid, sportid) => {
+  let { data, error } = await supabase.from("field").select("*");
+
+  if (cityid && sportid) {
+    ({ data, error } = await supabase
+      .from("field")
+      .select("*")
+      .eq("cityid", cityid)
+      .eq("sportid", sportid));
+  } else if (cityid) {
+    ({ data, error } = await supabase
+      .from("field")
+      .select("*")
+      .eq("cityid", cityid));
+  } else if (sportid) {
+    ({ data, error } = await supabase
+      .from("field")
+      .select("*")
+      .eq("sportid", sportid));
+  }
 
   if (error) {
-    throw new Error(error.message);
+    console.error("Error fetching filtered fields:", error);
+    throw error;
   }
 
   return data;

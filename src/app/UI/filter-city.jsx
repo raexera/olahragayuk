@@ -1,22 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import supabase from "../../lib/supabase";
+import { getCities } from "../../services/city";
 
 const CityFilter = ({ onChange }) => {
-  const [city, setcity] = useState([]);
+  const [cities, setCities] = useState([]);
 
   useEffect(() => {
-    fetchcities();
+    fetchCities();
   }, []);
 
-  const fetchcities = async () => {
-    let { data: city, error } = await supabase
-      .from("city")
-      .select("cityname")
-      .in("cityname", ["Jakarta", "Bandung", "Surabaya"]); // Filter berdasarkan cityname yang diinginkan
-    if (error) console.error("Error fetching cities:", error);
-    else setcity(city);
+  const fetchCities = async () => {
+    try {
+      const citiesData = await getCities();
+      setCities(citiesData);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
   };
 
   return (
@@ -25,10 +25,9 @@ const CityFilter = ({ onChange }) => {
         onChange={(e) => onChange(e.target.value)}
         className="w-[200px] h-[50px] bg-[#F5F5F5] rounded-[50px] px-[13px] outline-none text-[#141414] text-[18px] focus:ring-2 focus:ring-[#BEE702] caret-[#BEE702]"
       >
-        <option value="">City</option>
-
-        {city.map((city, index) => (
-          <option key={index} value={city.cityname}>
+        <option value="">Pilih city</option>
+        {cities.map((city) => (
+          <option key={city.cityid} value={city.cityid}>
             {city.cityname}
           </option>
         ))}
