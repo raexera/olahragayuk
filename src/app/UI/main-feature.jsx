@@ -39,6 +39,7 @@ const MainFeature = () => {
   const [fields, setFields] = useState([]);
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedField, setSelectedField] = useState(null);
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -72,6 +73,17 @@ const MainFeature = () => {
 
   const handleFeatureClick = (id) => {
     setActiveFeature(id);
+  };
+
+  const handleFieldClick = (field) => {
+    setSelectedField(field);
+  };
+
+  const handleProceedClick = () => {
+    if (selectedField) {
+      // Handle the proceed action here
+      console.log("Proceeding with field:", selectedField);
+    }
   };
 
   return (
@@ -122,12 +134,26 @@ const MainFeature = () => {
                   image={field.image}
                   title={field.fieldname}
                   description={`Location: ${field.location}, Price: $${field.priceperhour}/hr`}
+                  onClick={() => handleFieldClick(field)}
+                  isSelected={
+                    selectedField && selectedField.fieldid === field.fieldid
+                  }
                 />
               ))
             ) : (
               <p>No fields found.</p>
             )}
           </div>
+          {selectedField && (
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={handleProceedClick}
+                className="bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Proceed
+              </button>
+            </div>
+          )}
           <div className="flex mb-8">
             {features.find((feature) => feature.id === activeFeature).data}
           </div>
