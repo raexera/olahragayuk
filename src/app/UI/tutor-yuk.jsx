@@ -18,7 +18,7 @@ const TutorYuk = () => {
 
   const handleCoachClick = useCallback(
     (coach) => {
-      navigate(`/detail-sewa/${coach.coachid}`);
+      navigate(`/detail-tutor/${coach.coachid}`);
     },
     [navigate],
   );
