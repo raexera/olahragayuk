@@ -1,20 +1,5 @@
 import supabase from "../lib/supabase";
-
-const incrementBookingId = async () => {
-  const { data, error } = await supabase.from("booking").select("*");
-
-  if (error) {
-    console.error("Error fetching bookings:", error);
-    throw error;
-  }
-
-  if (data.length === 0) {
-    return 1;
-  }
-
-  const lastBooking = data[data.length - 1];
-  return lastBooking.bookingid + 1;
-};
+import { incrementId } from "./utils";
 
 export const createBooking = async (
   userId,
@@ -25,7 +10,7 @@ export const createBooking = async (
 ) => {
   const { data, error } = await supabase.from("booking").insert([
     {
-      bookingid: await incrementBookingId(),
+      bookingid: await incrementId("booking"),
       userid: userId,
       fieldid: fieldId,
       bookingdate: bookingDate,
