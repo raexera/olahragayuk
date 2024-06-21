@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SignInBttn, SignUpBttn } from "./button";
+import { SignInBttn, SignUpBttn } from "./button"; 
 
 const OlahragaYukLogo = () => {
   return (
@@ -16,14 +16,14 @@ const OlahragaYukLogo = () => {
 const Menu = () => {
   return (
     <div className="menuNavbar relative flex gap-10 z-50">
-      <Link href="/sewa-yuk">SewaYuk</Link>
-      <Link href="/tutor-yuk">TutorYuk</Link>
-      <Link href="/turnamen-yuk">TurnamenYuk</Link>
+      <Link href="/page.jsx#sewayuk">SewaYuk</Link>
+      <Link href="/page.jsx#tutoryuk">TutorYuk</Link>
+      <Link href="/page.jsx#turnamenyuk">TurnamenYuk</Link>
     </div>
   );
 };
 
-export default function Navbar() {
+export default async function Navbar() {
   return (
     <nav className="absolute z-50 flex w-screen h-30 items-center">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-8 lg:px-16">

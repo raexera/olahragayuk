@@ -15,6 +15,9 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+* {
+  scroll-behavior: smooth;
+}
 
 body {
   color: rgb(var(--foreground-rgb));

@@ -7,11 +7,12 @@ import Tutor from "../assets/tutorLogo";
 import TutorActive from "../assets/tutorLogoOn";
 import Turnamen from "../assets/turnamenLogo";
 import TurnamenActive from "../assets/turnamenLogoOn";
-import FilterSports from "./filter-sports";
-import FilterCity from "./filter-city";
-import SearchPage from "./search-sewayuk";
-import Card from "./card";
+import FilterSports from "../UI/filter-sports";
+import FilterCity from "../UI/filter-city";
+import SearchPage from "../UI/search-sewayuk";
+import Card from "../UI/card";
 import { getFields, getFilteredFields } from "../../services/field";
+import { useNavigate } from "react-router-dom";
 
 const features = [
   {
@@ -40,6 +41,12 @@ const MainFeature = () => {
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleFieldClick = useCallback((field) => {
+    navigate(`/detail-sewa/${field.fieldid}`);
+  }, [navigate]);
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -80,10 +87,6 @@ const MainFeature = () => {
 
   const handleFeatureClick = useCallback((id) => {
     setActiveFeature(id);
-  }, []);
-
-  const handleFieldClick = useCallback((field) => {
-    console.log("Selected field:", field);
   }, []);
 
   const handleSearch = useCallback((searchTerm) => {
@@ -131,12 +134,11 @@ const MainFeature = () => {
             {fields.length > 0 ? (
               fields.map((field) => (
                 <Card
-                  href="/detail-sewa"
                   key={field.fieldid}
                   image={field.image}
                   title={field.fieldname}
                   description={`Location: ${field.location}`}
-                  description2={`Price: $${field.priceperhour}/hr`}
+                  description2={`Price: ${field.priceperhour}/hour`}
                   onClick={() => handleFieldClick(field)}
                 />
               ))
@@ -144,9 +146,9 @@ const MainFeature = () => {
               <p>No fields found.</p>
             )}
           </div>
-          <div className="flex mb-8">
+          {/* <div className="flex mb-8">
             {features.find((feature) => feature.id === activeFeature).data}
-          </div>
+          </div> */}
         </section>
       </div>
     </div>

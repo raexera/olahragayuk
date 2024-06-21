@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import WhiteArrow from "../assets/white-arrow";
-// import "../globals.css";
+import { createBooking, createTransaction } from "../../services/payment"; // Import payment service functions
 
 const DateSelector = ({ bookingDate, handleDateChange }) => {
   return (
@@ -127,12 +127,70 @@ const BookingPage = () => {
     setBookingPhone(e.target.value);
   };
 
+  const handleProceedToPayment = async () => {
+    if (window.confirm("Are you sure you want to proceed to payment?")) {
+      // setError(""); // Clear previous errors
+      try {
+        // Validate all input fields
+        if (!bookingDate || !bookingTime || !duration || !bookingName || !bookingEmail || !bookingPhone) {
+          setError("Please fill in all the fields.");
+          return;
+        }
+  
+        // Create booking
+        const booking = await createBooking(
+          1, // Assuming user ID 1 for this simulation
+          1, // Assuming field ID 1 for this simulation
+          bookingDate,
+          bookingTime,
+          calculateEndTime(bookingDate, bookingTime, duration)
+        );
+  
+        console.log("Booking Response:", booking); // Log the response
+        if (!booking.BookingID) {
+          setError("Failed to create booking. Please try again.");
+          return;
+        }
+  
+        // Simulated transaction details
+        const amount = 100000; // Example amount in IDR
+        const transactionDate = new Date().toISOString().split("T")[0];
+        const paymentMethod = "Simulation";
+        const status = "Confirmed";
+  
+        // Create transaction
+        const transaction = await createTransaction(
+          1, // Assuming user ID 1 for this simulation
+          booking.BookingID,
+          null, // Assuming no CoachOrder for this simulation
+          amount,
+          transactionDate,
+          paymentMethod,
+          status
+        );
+  
+        console.log("Transaction Response:", transaction); // Log the response
+        if (!transaction.TransactionID) {
+          setError("Failed to create transaction. Please try again.");
+          return;
+        }
+  
+        alert(
+          `Booking confirmed! Booking ID: ${booking.BookingID}, Transaction ID: ${transaction.TransactionID}`
+        );
+      } catch (error) {
+        console.error("Error during payment processing:", error);
+        // setError("Payment failed. Please try again.");
+      }
+    }
+  };
+
   return (
     <div className="w-screen h-screen relative flex items-center justify-center pt-[70px]">
       <div className="w-screen h-[90%] mx-[50px] flex flex-row gap-[50px]">
         <div className="left w-[60%] h-full bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[30px] pt-[30px] pb-[20px] flex flex-row">
           <div className="arrw pt-[10px]">
-            <WhiteArrow href="/detail-sewa"/>
+            <WhiteArrow href="/detail-sewa" />
           </div>
           <div className="ml-[40px]">
             <div className="head h-[80px] w-full text-[34px] text-[#BEE702]">
@@ -246,8 +304,11 @@ const BookingPage = () => {
               <p className="text-[#BEE702] text-[20px]">Rp. 100.000</p>
             </div>
             <div className="bttn">
-              <button className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md">
-                Proceed to Payment{" "}
+              <button
+                className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md"
+                onClick={handleProceedToPayment}
+              >
+                Proceed to Payment
               </button>
             </div>
           </div>

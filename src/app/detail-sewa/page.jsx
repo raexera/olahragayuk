@@ -4,36 +4,38 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Arrow from "../assets/arrow";
 import { BookBttn } from "../UI/button";
-import { getFields } from "../../services/field";
+import { useParams } from "react-router-dom";
+import { getFieldById } from "../../services/field";
 
-const DetailSewa = ({ image, title }) => {
-  const [fields, setFields] = useState([]);
+const DetailSewa = () => {
+  const { fieldId } = useParams();
+  const [field, setField] = React.useState(null);
 
-  useEffect(() => {
-    const fetchFields = async () => {
+  React.useEffect(() => {
+    const fetchField = async () => {
       try {
-        let fetchedFields = [];
-        fetchedFields = await getFields();
-        setFields(fetchedFields);
+        const fetchedField = await getFieldById(fieldId);
+        setField(fetchedField);
       } catch (error) {
-        console.error("Error fetching fields:", error);
+        console.error("Error fetching field:", error);
       }
     };
 
-    fetchFields();
-  }, []);
+    fetchField();
+  }, [fieldId]);
+
+  if (!field) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="relative flex flex-col">
-      {fields.map((field) => (
-        <div key={field.fieldid}>
+        <div>
           <div className="w-screen h-[780px] bg-[#BBBBBB] relative flex items-center justify-center pt-[60px] ">
-            <div className="w-[1340px] h-[600px] rounded-[12px] bg-[#F5F5F5] border-black border-[1px] flex items-center justify-center">
-              <Image src={image} alt={title} width={1340} height={600} />
+            <div className="w-[1340px] h-[600px] rounded-[12px] bg-[#F5F5F5] border-black border-[1px] flex items-center justify-center overflow-hidden">
+              <Image src={field.image} alt={field.fieldname} width={1340} height={600} className="object-contain" />
             </div>
           </div>
-
-          <div className="test"></div>
 
           <div className="w-screen bg-[#141414] relative flex flex-col">
             <div className="w-screen h-[120px] flex flex-row justify-between px-[80px] items-center mb-[50px]">
@@ -86,7 +88,7 @@ const DetailSewa = ({ image, title }) => {
                   <p>Contact Person</p>
                 </div>
                 <div className="text-[20px] text-[#F5F5F5]">
-                  <p>Thomas : 08123456</p>
+                  <p>08123456</p>
                 </div>
               </div>
             </div>
@@ -98,7 +100,6 @@ const DetailSewa = ({ image, title }) => {
             </div>
           </div>
         </div>
-      ))}
     </div>
   );
 };

@@ -1,10 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
-const Card = ({ href, image, title, description, description2, onClick, isSelected }) => {
+const Card = ({ image, title, description, description2, onClick, isSelected }) => {
   return (
-    <Link href={href}>
       <div
         onClick={onClick}
         // className={`flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden cursor-pointer border-4 ${
@@ -31,7 +29,6 @@ const Card = ({ href, image, title, description, description2, onClick, isSelect
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 
