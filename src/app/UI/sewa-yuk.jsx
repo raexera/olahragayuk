@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import FilterSports from "../UI/filter-sports";
+import FilterCity from "../UI/filter-city";
+import SearchPage from "../UI/search-sewayuk";
 import Card from "../UI/card";
 import { getFields, getFilteredFields } from "../../services/field";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +18,7 @@ const SewaYuk = () => {
 
   const handleFieldClick = useCallback(
     (field) => {
-      navigate(`/detail-sewa/${field.fieldId}`);
+      navigate(`/detail-sewa/${field.fieldid}`);
     },
     [navigate],
   );
@@ -62,22 +65,35 @@ const SewaYuk = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-      {fields.length > 0 ? (
-        fields.map((field) => (
-          <Card
-            key={field.fieldId}
-            image={field.image}
-            title={field.fieldname}
-            description={`Location: ${field.location}`}
-            description2={`Price: ${field.priceperhour}/hour`}
-            onClick={() => handleFieldClick(field)}
-          />
-        ))
-      ) : (
-        <p>No fields found.</p>
-      )}
-    </div>
+    <section className="container mx-auto p-4 flex flex-col">
+      <div className="fitur w-full h-[60px] flex flex-row items-center gap-[50px]">
+        <div>
+          <SearchPage onSearch={handleSearch} />
+        </div>
+        <div>
+          <FilterSports onChange={handleFilterChangeSport} />
+        </div>
+        <div>
+          <FilterCity onChange={handleFilterChangeCity} />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+        {fields.length > 0 ? (
+          fields.map((field) => (
+            <Card
+              key={field.fieldid}
+              image={field.image}
+              title={field.fieldname}
+              description={`Location: ${field.location}`}
+              description2={`Price: ${field.priceperhour}/hour`}
+              onClick={() => handleFieldClick(field)}
+            />
+          ))
+        ) : (
+          <p>No fields found.</p>
+        )}
+      </div>
+    </section>
   );
 };
 
