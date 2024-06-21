@@ -146,9 +146,9 @@ const MainFeature = () => {
               <p>No fields found.</p>
             )}
           </div>
-          {/* <div className="flex mb-8">
+          <div className="flex mb-8">
             {features.find((feature) => feature.id === activeFeature).data}
-          </div> */}
+          </div>
         </section>
       </div>
     </div>
