@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import WhiteArrow from "../assets/white-arrow";
-// import "../globals.css";
+import { createBooking } from "../../services/booking";
 
 const DateSelector = ({ bookingDate, handleDateChange }) => {
   return (
@@ -127,12 +127,39 @@ const BookingPage = () => {
     setBookingPhone(e.target.value);
   };
 
+  const handleBooking = async () => {
+    if (
+      !bookingDate ||
+      !bookingTime ||
+      !bookingName ||
+      !bookingEmail ||
+      !bookingPhone
+    ) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      await createBooking(
+        1,
+        1,
+        bookingDate,
+        bookingTime,
+        calculateEndTime(bookingDate, bookingTime, duration),
+      );
+      alert("Booking created successfully!");
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      alert("Failed to create booking");
+    }
+  };
+
   return (
     <div className="w-screen h-screen relative flex items-center justify-center pt-[70px]">
       <div className="w-screen h-[90%] mx-[50px] flex flex-row gap-[50px]">
         <div className="left w-[60%] h-full bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[30px] pt-[30px] pb-[20px] flex flex-row">
           <div className="arrw pt-[10px]">
-            <WhiteArrow href="/detail-sewa"/>
+            <WhiteArrow href="/detail-sewa" />
           </div>
           <div className="ml-[40px]">
             <div className="head h-[80px] w-full text-[34px] text-[#BEE702]">
@@ -246,7 +273,10 @@ const BookingPage = () => {
               <p className="text-[#BEE702] text-[20px]">Rp. 100.000</p>
             </div>
             <div className="bttn">
-              <button className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md">
+              <button
+                onClick={handleBooking}
+                className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md"
+              >
                 Proceed to Payment{" "}
               </button>
             </div>
