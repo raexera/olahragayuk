@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import WhiteArrow from "../assets/white-arrow";
-import { createBooking, createTransaction } from "../../services/payment"; // Import payment service functions
+import { createBooking } from "../../services/booking";
 
 const DateSelector = ({ bookingDate, handleDateChange }) => {
   return (
@@ -127,61 +127,30 @@ const BookingPage = () => {
     setBookingPhone(e.target.value);
   };
 
-  const handleProceedToPayment = async () => {
-    if (window.confirm("Are you sure you want to proceed to payment?")) {
-      // setError(""); // Clear previous errors
-      try {
-        // Validate all input fields
-        if (!bookingDate || !bookingTime || !duration || !bookingName || !bookingEmail || !bookingPhone) {
-          setError("Please fill in all the fields.");
-          return;
-        }
-  
-        // Create booking
-        const booking = await createBooking(
-          1, // Assuming user ID 1 for this simulation
-          1, // Assuming field ID 1 for this simulation
-          bookingDate,
-          bookingTime,
-          calculateEndTime(bookingDate, bookingTime, duration)
-        );
-  
-        console.log("Booking Response:", booking); // Log the response
-        if (!booking.BookingID) {
-          setError("Failed to create booking. Please try again.");
-          return;
-        }
-  
-        // Simulated transaction details
-        const amount = 100000; // Example amount in IDR
-        const transactionDate = new Date().toISOString().split("T")[0];
-        const paymentMethod = "Simulation";
-        const status = "Confirmed";
-  
-        // Create transaction
-        const transaction = await createTransaction(
-          1, // Assuming user ID 1 for this simulation
-          booking.BookingID,
-          null, // Assuming no CoachOrder for this simulation
-          amount,
-          transactionDate,
-          paymentMethod,
-          status
-        );
-  
-        console.log("Transaction Response:", transaction); // Log the response
-        if (!transaction.TransactionID) {
-          setError("Failed to create transaction. Please try again.");
-          return;
-        }
-  
-        alert(
-          `Booking confirmed! Booking ID: ${booking.BookingID}, Transaction ID: ${transaction.TransactionID}`
-        );
-      } catch (error) {
-        console.error("Error during payment processing:", error);
-        // setError("Payment failed. Please try again.");
-      }
+  const handleBooking = async () => {
+    if (
+      !bookingDate ||
+      !bookingTime ||
+      !bookingName ||
+      !bookingEmail ||
+      !bookingPhone
+    ) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      await createBooking(
+        1,
+        1,
+        bookingDate,
+        bookingTime,
+        calculateEndTime(bookingDate, bookingTime, duration),
+      );
+      alert("Booking created successfully!");
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      alert("Failed to create booking");
     }
   };
 
@@ -305,10 +274,10 @@ const BookingPage = () => {
             </div>
             <div className="bttn">
               <button
+                onClick={handleBooking}
                 className="w-full h-[40px] bg-[#BEE702] text-[#141414] rounded-md"
-                onClick={handleProceedToPayment}
               >
-                Proceed to Payment
+                Proceed to Payment{" "}
               </button>
             </div>
           </div>

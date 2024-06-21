@@ -1,43 +1,53 @@
-import supabase from "@/lib/supabase";
+import supabase from "../lib/supabase";
 
-export const getBookings = async () => {
-  const { data, error } = await supabase.from("Booking").select("*");
+const incrementBookingId = async () => {
+  const { data, error } = await supabase.from("booking").select("*");
 
   if (error) {
-    throw new Error(error.message);
+    console.error("Error fetching bookings:", error);
+    throw error;
+  }
+
+  if (data.length === 0) {
+    return 1;
+  }
+
+  const lastBooking = data[data.length - 1];
+  return lastBooking.bookingid + 1;
+};
+
+export const createBooking = async (
+  userId,
+  fieldId,
+  bookingDate,
+  startTime,
+  endTime,
+) => {
+  const { data, error } = await supabase.from("booking").insert([
+    {
+      bookingid: await incrementBookingId(),
+      userid: userId,
+      fieldid: fieldId,
+      bookingdate: bookingDate,
+      starttime: startTime,
+      endtime: endTime,
+    },
+  ]);
+
+  if (error) {
+    console.error("Error creating booking:", error);
+    throw error;
   }
 
   return data;
 };
 
-export const createBooking = async (booking) => {
-  const { data, error } = await supabase.from("Booking").insert(booking);
+export const getBookings = async (userId) => {
+  const { data, error } = await supabase.from("booking").select("*");
 
   if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
-
-export const updateBooking = async (id, booking) => {
-  const { data, error } = await supabase
-    .from("Booking")
-    .update(booking)
-    .match({ id });
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return data;
-};
-
-export const deleteBooking = async (id) => {
-  const { data, error } = await supabase.from("Booking").delete().match({ id });
-
-  if (error) {
-    throw new Error(error.message);
+    console.error("Error fetching bookings:", error);
+    throw error;
   }
 
   return data;
