@@ -10,16 +10,15 @@ import TurnamenActive from "../assets/turnamenLogoOn";
 import FilterSports from "../UI/filter-sports";
 import FilterCity from "../UI/filter-city";
 import SearchPage from "../UI/search-sewayuk";
-import Card from "../UI/card";
 import { getFields, getFilteredFields } from "../../services/field";
-import { useNavigate } from "react-router-dom";
+import SewaYuk from "../UI/sewa-yuk";
 
 const features = [
   {
     id: 1,
     icon: Sewa,
     activeIcon: SewaActive,
-    data: "Data untuk Fitur 1",
+    data: <SewaYuk />,
   },
   {
     id: 2,
@@ -41,12 +40,6 @@ const MainFeature = () => {
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
-  const navigate = useNavigate();
-
-  const handleFieldClick = useCallback((field) => {
-    navigate(`/detail-sewa/${field.fieldid}`);
-  }, [navigate]);
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -129,26 +122,10 @@ const MainFeature = () => {
               <FilterCity onChange={handleFilterChangeCity} />
             </div>
           </div>
-          {/* Fields List */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-            {fields.length > 0 ? (
-              fields.map((field) => (
-                <Card
-                  key={field.fieldid}
-                  image={field.image}
-                  title={field.fieldname}
-                  description={`Location: ${field.location}`}
-                  description2={`Price: ${field.priceperhour}/hour`}
-                  onClick={() => handleFieldClick(field)}
-                />
-              ))
-            ) : (
-              <p>No fields found.</p>
-            )}
-          </div>
-          {/* <div className="flex mb-8">
+
+          <div className="flex mb-8">
             {features.find((feature) => feature.id === activeFeature).data}
-          </div> */}
+          </div>
         </section>
       </div>
     </div>
