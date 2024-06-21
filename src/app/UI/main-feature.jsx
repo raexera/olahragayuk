@@ -8,6 +8,7 @@ import TutorActive from "../assets/tutorLogoOn";
 import Turnamen from "../assets/turnamenLogo";
 import TurnamenActive from "../assets/turnamenLogoOn";
 import SewaYuk from "../UI/sewa-yuk";
+import TutorYuk from "../UI/tutor-yuk";
 
 const features = [
   {
@@ -20,7 +21,7 @@ const features = [
     id: 2,
     icon: Tutor,
     activeIcon: TutorActive,
-    data: "Data untuk Fitur 2",
+    data: <TutorYuk />,
   },
   {
     id: 3,
