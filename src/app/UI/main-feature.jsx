@@ -9,6 +9,7 @@ import Turnamen from "../assets/turnamenLogo";
 import TurnamenActive from "../assets/turnamenLogoOn";
 import SewaYuk from "../UI/sewa-yuk";
 import TutorYuk from "../UI/tutor-yuk";
+import TurnamenYuk from "../UI/turnamen-yuk";
 
 const features = [
   {
@@ -27,7 +28,7 @@ const features = [
     id: 3,
     icon: Turnamen,
     activeIcon: TurnamenActive,
-    data: "Data untuk Fitur 3",
+    data: <TurnamenYuk />,
   },
 ];
 

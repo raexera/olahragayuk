@@ -4,8 +4,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./UI/landing-page";
 import MainFeature from "./UI/main-feature";
-import FieldDetail from "./detail-sewa/page";
+import SewaDetail from "./detail-sewa/page";
 import CoachDetail from "./detail-tutor/page";
+import TournamentDetail from "./detail-turnamen/page";
 
 export default function App() {
   return (
@@ -22,8 +23,9 @@ export default function App() {
                 </>
               }
             />
-            <Route path="/detail-sewa/:fieldId" element={<FieldDetail />} />
+            <Route path="/detail-sewa/:fieldId" element={<SewaDetail />} />
             <Route path="/detail-tutor/:coachId" element={<CoachDetail />} />
+            <Route path="/detail-turnamen/:tournamentId" element={<TournamentDetail />} />
           </Routes>
         </div>
       </main>
