@@ -2,7 +2,7 @@
 
 import { Auth } from "@supabase/auth-ui-react";
 import { createClient } from "@supabase/supabase-js";
-import React from "react";
+import React, { useEffect } from "react";
 
 const supabase = createClient(
   "https://vhbeprujgtyzsusmnqhb.supabase.co",
@@ -68,6 +68,21 @@ const customTheme = {
 };
 
 const SignInAuth = () => {
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN") {
+          window.location.href = "/";
+        }
+      },
+    );
+
+    return () => {
+      if (authListener && authListener.subscription) {
+        authListener.subscription.unsubscribe();
+      }
+    };
+  }, []);
   return (
     <Auth
       supabaseClient={supabase}

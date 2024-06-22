@@ -2,7 +2,7 @@
 
 import { Auth } from "@supabase/auth-ui-react";
 import { createClient } from "@supabase/supabase-js";
-import React from "react";
+import React, { useEffect } from "react";
 
 const supabase = createClient(
   "https://vhbeprujgtyzsusmnqhb.supabase.co",
@@ -67,7 +67,23 @@ const customTheme = {
   },
 };
 
-const SignInAuth = () => {
+const SignUpAuth = () => {
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === "SIGNED_IN") {
+          window.location.href = "/";
+        }
+      },
+    );
+
+    return () => {
+      if (authListener && authListener.subscription) {
+        authListener.subscription.unsubscribe();
+      }
+    };
+  }, []);
+
   return (
     <Auth
       supabaseClient={supabase}
@@ -93,7 +109,7 @@ const App = () => {
     <div className="relative flex w-screen h-screen items-center justify-center bg-[#141414]">
       <div className="w-[500px] h-[500px] flex items-center justify-center bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[20px] py-[30px]">
         <div>
-          <SignInAuth />
+          <SignUpAuth />
           {/* <div className="flex items-center justify-center text-[12px] cursor-pointer hover:text-[#BEE702]">
             <p>Already have an account? Sign in</p>
           </div> */}
