@@ -7,25 +7,28 @@ import Tutor from "../assets/tutorLogo";
 import TutorActive from "../assets/tutorLogoOn";
 import Turnamen from "../assets/turnamenLogo";
 import TurnamenActive from "../assets/turnamenLogoOn";
-import SewaYuk from "../UI/sewa-yuk";
-import TutorYuk from "../UI/tutor-yuk";
-import TurnamenYuk from "../UI/turnamen-yuk";
+import SewaYuk from "./sewa-yuk";
+import TutorYuk from "./tutor-yuk";
+import TurnamenYuk from "./turnamen-yuk";
 
 const features = [
   {
     id: 1,
+    hash: "#sewayuk",
     icon: Sewa,
     activeIcon: SewaActive,
     data: <SewaYuk />,
   },
   {
     id: 2,
+    hash: "#tutoryuk",
     icon: Tutor,
     activeIcon: TutorActive,
     data: <TutorYuk />,
   },
   {
     id: 3,
+    hash: "#turnamenyuk",
     icon: Turnamen,
     activeIcon: TurnamenActive,
     data: <TurnamenYuk />,
@@ -37,6 +40,28 @@ const MainFeature = () => {
 
   const handleFeatureClick = useCallback((id) => {
     setActiveFeature(id);
+    const hash = features.find((feature) => feature.id === id).hash;
+    window.location.hash = hash;
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    const active = features.find((feature) => feature.hash === hash);
+    if (active) setActiveFeature(active.id);
+  }, []);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      const active = features.find((feature) => feature.hash === hash);
+      if (active) setActiveFeature(active.id);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, []);
 
   return (

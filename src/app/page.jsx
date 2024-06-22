@@ -29,7 +29,10 @@ export default function App() {
             />
             <Route path="/detail-sewa/:fieldId" element={<SewaDetail />} />
             <Route path="/detail-tutor/:coachId" element={<CoachDetail />} />
-            <Route path="/detail-turnamen/:tournamentId" element={<TournamentDetail />} />
+            <Route
+              path="/detail-turnamen/:tournamentId"
+              element={<TournamentDetail />}
+            />
           </Routes>
         </div>
       </main>
