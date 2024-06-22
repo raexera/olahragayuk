@@ -1,13 +1,8 @@
 "use client";
 
 import { Auth } from "@supabase/auth-ui-react";
-import { createClient } from "@supabase/supabase-js";
 import React from "react";
-
-const supabase = createClient(
-  "https://vhbeprujgtyzsusmnqhb.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZoYmVwcnVqZ3R5enN1c21ucWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc0NzQ4MzksImV4cCI6MjAzMzA1MDgzOX0.WFatNWa_PPgrIM4OXi8yOXtozn_McCUjKeUXgeQJ03M",
-);
+import supabase from "../../lib/supabase";
 
 const customTheme = {
   dark: {
@@ -49,12 +44,6 @@ const customTheme = {
       baseLabelSize: "14px",
       baseButtonSize: "14px",
     },
-    fonts: {
-      // bodyFontFamily: `ui-sans-serif, sans-serif`,
-      // buttonFontFamily: `ui-sans-serif, sans-serif`,
-      // inputFontFamily: `ui-sans-serif, sans-serif`,
-      // labelFontFamily: `ui-sans-serif, sans-serif`,
-    },
     borderWidths: {
       buttonBorderWidth: "1px",
       inputBorderWidth: "1px",
@@ -83,7 +72,6 @@ const SignInAuth = () => {
       }}
       providers={["google"]}
       view="sign_in"
-      // showLinks={false}
     />
   );
 };
@@ -94,9 +82,6 @@ const App = () => {
       <div className="w-[500px] h-[500px] flex items-center justify-center bg-white/10 rounded-lg backdrop-blur-md shadow-md border border-white/30 px-[20px] py-[30px]">
         <div>
           <SignInAuth />
-          {/* <div className="flex items-center justify-center text-[12px] cursor-pointer hover:text-[#BEE702]">
-            <p>Already have an account? Sign in</p>
-          </div> */}
         </div>
       </div>
     </div>
