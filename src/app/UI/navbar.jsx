@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SignInBttn, SignUpBttn } from "./button"; 
+import supabase from "../../lib/supabase";
+import { SignInBttn, SignUpBttn } from "./button";
 
 const OlahragaYukLogo = () => {
   return (
@@ -16,24 +18,70 @@ const OlahragaYukLogo = () => {
 const Menu = () => {
   return (
     <div className="menuNavbar relative flex gap-10 z-50">
-      <Link href="/page.jsx#sewayuk">SewaYuk</Link>
-      <Link href="/page.jsx#tutoryuk">TutorYuk</Link>
-      <Link href="/page.jsx#turnamenyuk">TurnamenYuk</Link>
+      <Link href="/#sewayuk">SewaYuk</Link>
+      <Link href="/#tutoryuk">TutorYuk</Link>
+      <Link href="/#turnamenyuk">TurnamenYuk</Link>
     </div>
   );
 };
 
-export default async function Navbar() {
+const Navbar = () => {
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setSession(session);
+    };
+
+    getSession();
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+  };
+
   return (
     <nav className="absolute z-50 flex w-screen h-30 items-center">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-8 lg:px-16">
         <OlahragaYukLogo />
         <Menu />
         <div className="flex gap-4 z-50">
-          <SignInBttn href="/signin" />
-          <SignUpBttn href="/signup" />
+          {session ? (
+            <div className="flex items-center gap-4">
+              <Image
+                alt="Profile Picture"
+                src={
+                  session.user.user_metadata.avatar_url || "/default-avatar.png"
+                }
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+              <button
+                onClick={handleLogout}
+                className="bg-white/10 text-white px-4 py-2 rounded-lg"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <>
+              <SignInBttn href="/signin" />
+              <SignUpBttn href="/signup" />
+            </>
+          )}
         </div>
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
