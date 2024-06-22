@@ -6,9 +6,9 @@ import Link from "next/link";
 import supabase from "../../lib/supabase";
 import { SignInBttn, SignUpBttn } from "./button";
 
-const OlahragaYukLogo = () => {
+const OlahragaYukLogo = ({ href }) => {
   return (
-    <Link href="/">
+    <Link href={href}>
       <div className="z-50">
         <Image alt="logo" width={137} height={85} src="/olahragayuk-logo.png" />
       </div>
@@ -53,23 +53,26 @@ const Navbar = () => {
   return (
     <nav className="absolute z-50 flex w-screen h-30 items-center">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-8 lg:px-16">
-        <OlahragaYukLogo />
+        <OlahragaYukLogo href="./" />
         <Menu />
         <div className="flex gap-4 z-50">
           {session ? (
             <div className="flex items-center gap-4">
-              <Image
-                alt="Profile Picture"
-                src={
-                  session.user.user_metadata.avatar_url || "/default-avatar.png"
-                }
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
+              <Link href="/profile">
+                <Image
+                  alt="Profile Picture"
+                  src={
+                    session.user.user_metadata.avatar_url ||
+                    "/default-avatar.png"
+                  }
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+              </Link>
               <button
                 onClick={handleLogout}
-                className="bg-white/10 text-white px-4 py-2 rounded-lg"
+                className="text-white px-4 py-2 rounded-lg bg-[#BEE702]"
               >
                 Logout
               </button>
