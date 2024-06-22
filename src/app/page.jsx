@@ -8,6 +8,7 @@ import SewaDetail from "./detail-sewa/page";
 import CoachDetail from "./detail-tutor/page";
 import TournamentDetail from "./detail-turnamen/page";
 import Profile from "./UI/profile";
+import ProviderRegister from "./UI/provider-register";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
                   <LandingPage />
                   <MainFeature />
                   <Profile />
+                  <ProviderRegister />
                 </>
               }
             />
